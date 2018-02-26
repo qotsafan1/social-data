@@ -6,436 +6,740 @@
     <script type="text/javascript" src="d3/d3.js"></script>
 
     <style type="text/css">
-	body {
-		font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-		font-size: 10px;
-		color: #202020;
-		background: #FFFFFF;
-		margin: 40px 0 20px 0;
-		padding: 0;
-	}
+    	body {
+    		font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    		font-size: 10px;
+    		color: #202020;
+    		background: #FFFFFF;
+    		margin: 40px 0 20px 0;
+    		padding: 0;
+    	}
 
-	a:active, a:focus { outline: 0; }
+    	#content {
+    		width: 770px;
+    		margin: 0 auto;
+    	}
 
-	#content {
-		width: 770px;
-		margin: 0 auto;
-	}
+      div.part {
+        margin-bottom: 100px;
+      }
 
-		#content #header {
-			border-bottom: 3px solid #202020;
-		}
+    	#content #header {
+    		border-bottom: 3px solid #202020;
+    	}
 
-		#content #header #top {
-			border-bottom: 1px solid #202020;
-			padding: 0 0 10px 0;
-			position: relative;
-		}
+    	#content #header #top {
+    		border-bottom: 1px solid #202020;
+    		padding: 0 0 10px 0;
+    		position: relative;
+    	}
 
-		#content #header #top h1.title {
-			width: 688px;
-			color: #202020;
-			font-family: Georgia;
-			font-size: 72px;
-			font-style: italic;
-			font-weight: normal;
-			letter-spacing: -3px;
-			text-decoration: none;
-			margin: 0;
-		}
+    	#content #header #top h1.title {
+    		width: 688px;
+    		color: #202020;
+    		font-family: Georgia;
+    		font-size: 72px;
+    		font-style: italic;
+    		font-weight: normal;
+    		letter-spacing: -3px;
+    		text-decoration: none;
+    		margin: 0;
+    	}
 
-		#content #header #top .buttons {
-			position: absolute;
-			bottom: 24px;
-			right: 0;
-		}
+    	#content #header #top .buttons {
+    		position: absolute;
+    		bottom: 24px;
+    		right: 0;
+    	}
 
-		#content #header #top .buttons a {
-			color: #FFFFFF;
-			font-weight: bold;
-			text-transform: uppercase;
-			text-decoration: none;
-			background: #D00000;
-		}
+    	#content #header #top .buttons a {
+    		color: #FFFFFF;
+    		font-weight: bold;
+    		text-transform: uppercase;
+    		text-decoration: none;
+    		background: #D00000;
+    	}
 
-		#content #header #bottom {
-			font-size: 10px;
-			padding: 8px 0;
-		}
+    	#content #header #bottom {
+    		font-size: 10px;
+    		padding: 8px 0;
+    	}
 
-		#content #header #bottom a {
-			color: #447777;
-			font-weight: bold;
-			text-decoration: none;
-		}
+    	#content #header #bottom a {
+    		color: #447777;
+    		font-weight: bold;
+    		text-decoration: none;
+    	}
 
-    p {
-      font-family: Georgia;
-      font-size: 14px;
-    }
+      p {
+        font-family: Georgia;
+        font-size: 14px;
+      }
 
-    p.info {
-      font-size: 10px;
-    }
+      p.info {
+        font-size: 10px;
+      }
 
-    h1.headline {
-      font-size: 32px;
+      p.question {
+        font-weight: bold;
+        font-style: italic;
+      }
 
-    }
+      p.answer {
+        margin: 15px;
+        line-height: 1.5;
+      }
 
-    h1.headline a {
-      text-decoration: none;
-      color: black;
-      font-family: Georgia;
-    }
+      h1.headline {
+        font-size: 32px;
+      }
 
-    h1.headline a:hover {
-      color: red;
-    }
+      h1.headline a {
+        text-decoration: none;
+        color: black;
+        font-family: Georgia;
+      }
 
-    .legend {
-      cursor:pointer;
-      font-size: 14px;
-    }
+      h1.headline a:hover {
+        color: red;
+      }
 
+      .legend {
+        cursor:pointer;
+        font-size: 14px;
+      }
 
-	</style>
+      .axis path,
+      .axis line {
+          stroke: teal;
+          shape-rendering: crispEdges;
+      }
 
+      .line {
+        fill: none;
+        stroke: teal;
+        stroke-width: 0.5;
+      }
+
+      .men:hover, .women:hover, .all:hover {
+        text-decoration: underline;
+        cursor:pointer;
+      }
+	  </style>
   </head>
   <body>
 
     <!--a href="http://www.tumblr.com/theme/467" class="install"></a-->
 	<div id="content">
-		<div id="header">
-			<div id="top">
-        <p>
-          This is a reproduction of
-          <a href="http://iquantny.tumblr.com/post/129373499164/this-is-quantifiably-the-best-month-to-go-to-the">http://iquantny.tumblr.com/post/129373499164/this-is-quantifiably-the-best-month-to-go-to-the
-          </a>
-          as the first line
-        </p>
-        <h1 href="#" class="title">I Quant NY</h1>
-				<div class="buttons">
-						<a href="#" class="button">Mailing List</a>
-					  <a href="#" class="button">RSS</a>
-					  <a href="#" class="button">Archive</a>
-				</div>
-				<div style="clear: both"></div>
-			</div>
-			<div id="bottom">
-				<p class="info">Quantitative Analysis of NYC Open Data: Every data set that the city releases tells a story. This blog is all about telling those stories, one data set at a time.</p>
-        <a href="#">About Me</a>
-        <a href="#">About You</a>
-        <a href="#">Interviews</a>
-        <a href="#">Press</a>
-        <a href="#">Topics</a>
-        <a href="#">Subscribe</a>
-			</div>
-		</div>
-		<div class="date">
-			September 18, 2015
-		</div>
-		<div class="post">
-      <h1 class="headline"><a href="http://iquantny.tumblr.com/post/129373499164/this-is-quantifiably-the-best-month-to-go-to-the">This is Quantifiably the Best Month to go to the Farmers Market</a></h1>
-				<p>As part of a homework assignment, I ask my students at Pratt to go out and chart something of interest to them, and <a href="https://t.umblr.com/redirect?z=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fkvsavarese&amp;t=NmE2YmYyYjU4NTI3MTFhYWFiMWE1ZjFhNzc1NmUzMmE0ZDQ4OGM2NSwxeHM2a1phNg%3D%3D&amp;b=t%3A5jlxwUw4OZ-2SbgNDPgKMQ&amp;p=http%3A%2F%2Fiquantny.tumblr.com%2Fpost%2F129373499164%2Fthis-is-quantifiably-the-best-month-to-go-to-the&amp;m=1">Katherine Savarese</a> came back with a simple chart about farmers markets that I loved- it inspired this post.</p>
-        <p>You probably know that farmers markets are a staple across <a href="https://t.umblr.com/redirect?z=http%3A%2F%2Fwww.grownyc.org%2Ffiles%2Fgmkt%2Fmap.pdf&amp;t=MGM4YmRjZjQ2ZmFmYzBiYmMzMmY5NDU2MTdiNzMzMmYyOWQ5YjQ2ZSwxeHM2a1phNg%3D%3D&amp;b=t%3A5jlxwUw4OZ-2SbgNDPgKMQ&amp;p=http%3A%2F%2Fiquantny.tumblr.com%2Fpost%2F129373499164%2Fthis-is-quantifiably-the-best-month-to-go-to-the&amp;m=1">all five boroughs</a> of New York City, but September happens to be a very special month.  Why is that? &nbsp;Well, it turns out September is the month with the most unique types of fresh produce- forty three to be exact.</p>
-        <p>To show the current offerings, we charted how many types of fruits and vegetables are available by month, and showed if they were fresh or from storage.&nbsp;</p>
-
-        <div id="chart"></div>
-
-        <p>If you miss the month of September, you might be behind the fruit curve, but there are plenty more months of vegetables left. The chart shows that fresh vegetables are available 9 out of 12 months, but fruit is only available 5 out of 12. Now if only we could quantify how delicious the produce is</p>
-        <p>Data from:
-          <a href="https://t.umblr.com/redirect?z=http%3A%2F%2Fwww.grownyc.org%2Fgreenmarket%2Fwhatsavailable&amp;t=MWU3YTNhNmYwMDJkNWUwNWQzOTUwMTZjMzJlMGNhM2E3YzdlNTIxMCwxeHM2a1phNg%3D%3D&amp;b=t%3A5jlxwUw4OZ-2SbgNDPgKMQ&amp;p=http%3A%2F%2Fiquantny.tumblr.com%2Fpost%2F129373499164%2Fthis-is-quantifiably-the-best-month-to-go-to-the&amp;m=1">http://www.grownyc.org/greenmarket/whatsavailable</a>
-         </p>
-      </div>
+    <div class="part">
+      <h2 class="part-header">Part 1: DAOST Chapter 2 Questions</h2>
+      <p class="question">Explain in your own words the point of the jitter plot.</p>
+      <p class="answer">When looking at data in a regular dot plot we can miss values because if points have the exact same value their dots will fall right on top of each other and the viewer will have no way of knowing how many points are at that value. A jitter plot is a solution to this problem, in a jitter plot the points have been jittered. Jittering is the act of shifting each point by a small random amount from its original position and thus the point won't fall on top of the other points that have the same value. This allows the viewer to see where there are many points that have the same value, which is information he couldn't see in a dot plot.</p>
+      <p class="question">Explain in your own words the point of figure 2-3. (I'm going to skip saying "in your own words" going forward, but I hope you get the point; I expect all answers to be in your own words).</p>
+      <p class="answer">The point of the figure is to illustrate how drasticly the choice of bin alignment (anchoring point) can affect a histogram.</p>
+      <p class="question">The author of DAOST (Philipp Janert) likes KDEs (and think they're better than histograms). And I don't. I didn't give a detailed explanation in the video, but now that works to my advantage. I'll ask you guys to think about this and thereby create an excellent exercise: When can KDEs be misleading?</p>
+      <p class="answer"></p>
+      <p class="question">I've discussed some strengths of the CDF - there are also weaknesses. Janert writes "[CDFs] have less intuitive appeal than histograms of KDEs". What does he mean by that?</p>
+      <p class="answer"></p>
+      <p class="question">What is a Quantile plot? What is it good for.</p>
+      <p class="answer">A quantile plot is just the CDF plot where the x- and y-axis have been switched. It is good for when viewers need to see key percentage points of a given distribution.</p>
+      <p class="question">How is a Probablity plot defined? What is it useful for? Have you ever seen one before?</p>
+      <p class="answer">A probability plot is used to try and determine if a set of points behave according to a certain distribution. The inverse of the distribution function you suspect it behaves like is used to draw the points and from the result you can see how close they are to the straight line. We've never seen a probability plot before but they are an interesting concept.</p>
+      <p class="question">One of the reasons I like DAOST is that Janert is so suspicious of mean, median, and related summary statistics. Explain why one has to be careful when using those - and why visualization of the full data is always better.</p>
+      <p class="answer">Using these summary statistics we often can lose a lot of information about the data. This is especially true if the data is skewed or contains outliers, real data is often messy and therefore you should be careful when using these. Visualization is always better as you can show much more, if not all the, information about your data and even add these summary statistics to your visualizations if need be.</p>
+      <p class="question">I love box plots. When are box plots most useful?</p>
+      <p class="answer">Box plots are best when used to compare several distributions against one another.</p>
+      <p class="question">The book doesn't mention violin plots. Are those better or worse than box plots? Why?</p>
+      <p class="answer">Violin plots show more information than box plots. While a box plot only shows summary statistics such as mean/median and interquartile ranges and outliers, the violin plot shows the full distribution of the data. However violin plots have been around a much shorter time (since 1998 vs box plot since 1969) and are much less popular than box plots. It appears a bit as if this is a sensitive matter to people online as some love them and others absolutely hate them. Personally we think that the simplistic nature of a box plot makes it more easily read and understood but when thinking strictly about the magnitude of data available in the plot the violin plot is the winner.</p>
     </div>
 
-    <script type="text/javascript">
-    var w = 700;
-    var h = 400;
-    var margin = 40;
+    <div class="part">
+      <h2 class="part-header">Part 2: DAOST Chapter 3 Questions</h2>
+      <p class="question">Looking at Fig 3-1, Janert writes "the data itself shows clearly that the amount of random noise in the data is small". What do you think his argument is?</p>
+      <p class="answer"></p>
+      <p class="question">Can you think of a real-world example of a multivariate relationship like the one in Fig 3-3 (lower right panel)?</p>
+      <p class="answer">Many real-world relationships are multivariate, for example the weather, you can't just look at the season and determine what the weather will be like, you need to look at a whole lot of other stuff.</p>
+      <p class="question">What are the two methods Janert metions for smoothing noisy data? Can you think of other ones?</p>
+      <p class="answer">Weighted splines and local weighted regression (LOESS). Yes, for example using Kalman filtering or something simple as a moving average.</p>
+      <p class="question">What are residuals? Why is it a good idea to plot the residuals of your fit?</p>
+      <p class="answer">Residuals are the remainder when you subtract the smooth "trend" from the actual data. It's a good idea to plot the residual to try and see if the model used was appropriate. Residuals should be balanced and free of trends.</p>
+      <p class="question">Explain in your own words the point of the smooth tube in figure 3-7.</p>
+      <p class="answer">The point is to simplify the data to make it easier to see if the data exhibits a meaningful relationship. With the smooth tube we are particularly interested to see whether the width of the tube varies along the curve.</p>
+      <p class="question">What kind of relationships will a semi-log plot help you discover?</p>
+      <p class="answer">Relative change, exponential behaviour. It is useful when one of the variables being plotted covers a large range of values and the other has only a restricted range.</p>
+      <p class="question">What kind of functions will loglog plots help you see?</p>
+      <p class="answer">Functions that follow a power-law, e.g. y=C*x^k and y=C/x^k, where C and k are constans, will fall on a straight line.</p>
+      <p class="question">What the h#ll is banking and what element from our visual system does it use to help us see patterns? What are potential problems with banking?</p>
+      <p class="answer">Banking works on the plot itself and not the data. Banking is adjusting the aspect ratio of the plot so that most slopes are at an approximate 45 degree angle. We have so called orientation columns in our primary visual cortex that seem to favour certain orientations. Potential problems with banking is that when using it we may end far away from the 4:3 aspect ratio that humans seem to have a great affinity for. We also have to be careful to not focus too much on banking when the right thing to do may be to use for example a logarithmic transform to make the data look right.</p>
+      <p class="question">I think figure 3-14 makes an important point about linear fits that is rarely made. What is it?</p>
+      <p class="answer"></p>
+      <p class="question">Summarize the discussion of Graphical Analysis and Presentation Graphics on pp. 68-69 in your own words.</p>
+      <p class="answer">These are two different things and you should follow different "rules" for each. Graphical Analysis is the process of trying to understand and analyze data you haven't seen before or are looking for new information in. Presentation Graphics on the other hand is where you have data that you already know and you have all the information needed from the data but you want to show someone else what you know. For Graphical Analysis you should focus on convenience and ease of use, that is not waste time making them fancy, but for Presentation Graphics you should make them easy to read and understand and make sure all the information you want to convey is available and obvious for the person who is about to see it, that is you need to think about e.g. font types and sizes, labels and axes and so on.</p>
+    </div>
 
-    var dataset = [];
-    var rawData = [];
-    var months = [];
-    var keys = ["Harvest Fruits", "Storage Fruits", "Harvest Vegetables", "Storage Vegetables"]
-    var xScale, yScale, xAxis, yAxis, yAxisRight, yAxisLeft, svg, series, stack;
+    <div class="part">
+      <h2 class="part-header">Part 3: Viz 1</h2>
+  		<div id="header">
+  			<div id="top">
+          <p>
+            This is a reproduction of
+            <a href="http://iquantny.tumblr.com/post/129373499164/this-is-quantifiably-the-best-month-to-go-to-the">http://iquantny.tumblr.com/post/129373499164/this-is-quantifiably-the-best-month-to-go-to-the
+            </a>
+          </p>
+          <h1 href="#" class="title">I Quant NY</h1>
+  				<div class="buttons">
+  						<a href="#" class="button">Mailing List</a>
+  					  <a href="#" class="button">RSS</a>
+  					  <a href="#" class="button">Archive</a>
+  				</div>
+  				<div style="clear: both"></div>
+  			</div>
+  			<div id="bottom">
+  				<p class="info">Quantitative Analysis of NYC Open Data: Every data set that the city releases tells a story. This blog is all about telling those stories, one data set at a time.</p>
+          <a href="#">About Me</a>
+          <a href="#">About You</a>
+          <a href="#">Interviews</a>
+          <a href="#">Press</a>
+          <a href="#">Topics</a>
+          <a href="#">Subscribe</a>
+  			</div>
+  		</div>
+  		<div class="date">
+  			September 18, 2015
+  		</div>
+  		<div class="post">
+        <h1 class="headline"><a href="http://iquantny.tumblr.com/post/129373499164/this-is-quantifiably-the-best-month-to-go-to-the">This is Quantifiably the Best Month to go to the Farmers Market</a></h1>
+  				<p>As part of a homework assignment, I ask my students at Pratt to go out and chart something of interest to them, and <a href="https://t.umblr.com/redirect?z=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fkvsavarese&amp;t=NmE2YmYyYjU4NTI3MTFhYWFiMWE1ZjFhNzc1NmUzMmE0ZDQ4OGM2NSwxeHM2a1phNg%3D%3D&amp;b=t%3A5jlxwUw4OZ-2SbgNDPgKMQ&amp;p=http%3A%2F%2Fiquantny.tumblr.com%2Fpost%2F129373499164%2Fthis-is-quantifiably-the-best-month-to-go-to-the&amp;m=1">Katherine Savarese</a> came back with a simple chart about farmers markets that I loved- it inspired this post.</p>
+          <p>You probably know that farmers markets are a staple across <a href="https://t.umblr.com/redirect?z=http%3A%2F%2Fwww.grownyc.org%2Ffiles%2Fgmkt%2Fmap.pdf&amp;t=MGM4YmRjZjQ2ZmFmYzBiYmMzMmY5NDU2MTdiNzMzMmYyOWQ5YjQ2ZSwxeHM2a1phNg%3D%3D&amp;b=t%3A5jlxwUw4OZ-2SbgNDPgKMQ&amp;p=http%3A%2F%2Fiquantny.tumblr.com%2Fpost%2F129373499164%2Fthis-is-quantifiably-the-best-month-to-go-to-the&amp;m=1">all five boroughs</a> of New York City, but September happens to be a very special month.  Why is that? &nbsp;Well, it turns out September is the month with the most unique types of fresh produce- forty three to be exact.</p>
+          <p>To show the current offerings, we charted how many types of fruits and vegetables are available by month, and showed if they were fresh or from storage.&nbsp;</p>
 
-    //Load in the data
-    d3.csv("data.txt", function(data) {
-      rawData = data;
+          <div id="chart"></div>
 
-      var sortArray = getData(-1);
-
-      for (var month in sortArray) {
-        dataset.push(sortArray[month]);
-        months.push(month);
-      }
-
-			//Set up stack method
-			stack = d3.stack()
-						  .keys(keys);  // <-- Flipped stacking order
-
-			//Data, stacked
-			series = stack(dataset);
-
-      xScale = d3.scaleBand()
-          			 .domain(d3.range(dataset.length))
-          			 .range([80, w-200], 0.05)
-                 .paddingInner(0.5);
-
-      yScale = d3.scaleLinear()
-                 .domain([0, d3.max(dataset, function(d, i) {
-                                var max = 0;
-                                for (var type in keys) {
-                                  max += d[keys[type]];
-                                }
-                   						  return 10 + max;
-                   					 })
-                 ])
-                 .range([h-margin, 50]);
+          <p>If you miss the month of September, you might be behind the fruit curve, but there are plenty more months of vegetables left. The chart shows that fresh vegetables are available 9 out of 12 months, but fruit is only available 5 out of 12. Now if only we could quantify how delicious the produce is</p>
+          <p>Data from:
+            <a href="https://t.umblr.com/redirect?z=http%3A%2F%2Fwww.grownyc.org%2Fgreenmarket%2Fwhatsavailable&amp;t=MWU3YTNhNmYwMDJkNWUwNWQzOTUwMTZjMzJlMGNhM2E3YzdlNTIxMCwxeHM2a1phNg%3D%3D&amp;b=t%3A5jlxwUw4OZ-2SbgNDPgKMQ&amp;p=http%3A%2F%2Fiquantny.tumblr.com%2Fpost%2F129373499164%2Fthis-is-quantifiably-the-best-month-to-go-to-the&amp;m=1">http://www.grownyc.org/greenmarket/whatsavailable</a>
+           </p>
+        </div>
+      </div>
 
 
-			//Easy colorScale accessible via a 10-step ordinal scale
-      var colors = ["#0000ff","#FF0000","#FFA500","#008000"];
-			var colorScale = d3.scaleOrdinal()
-           .range(colors);
+      <script type="text/javascript">
+      var w = 700;
+      var h = 400;
+      var margin = 40;
 
-      xAxis = d3.axisBottom().scale(xScale).tickFormat((d,i) => months[i]);
-      yAxis = d3.axisLeft().scale(yScale);
+      var datasetOne = [];
+      var rawData = [];
+      var months = [];
+      var keys = ["Harvest Fruits", "Storage Fruits", "Harvest Vegetables", "Storage Vegetables"]
+      var xScaleOne, yScaleOne, xAxisOne, yAxisOne, svg, series, stack;
 
-			//Create SVG element
-			svg = d3.select("#chart")
-						.append("svg")
-						.attr("width", w)
-						.attr("height", h);
+      //Load in the data
+      d3.csv("data.txt", function(data) {
+        rawData = data;
 
-			// Add a group for each row of data
-			var groups = svg.selectAll("g")
-				.data(series)
-				.enter()
-				.append("g")
-				.style("fill", function(d, i) {
-					return colorScale(i);
-				})
-        .attr("class", "groups");
-			// Add a rect for each data value
-			var rects = groups.selectAll("rect")
-				.data(function(d) { return d; })
-				.enter()
-				.append("rect")
-				.attr("x", function(d, i) {
-					return xScale(i);
-				})
-				.attr("y", function(d) {
-					return yScale(d[1]);  // <-- Changed y value
-				})
-				.attr("height", function(d) {
-					return yScale(d[0]) - yScale(d[1]);  // <-- Changed height value
-				})
-				.attr("width", xScale.bandwidth())
-        .attr("class", "bar");
-/*
-        //Create labels
-        svg.selectAll("text")
-           .data(function(d) { return d; })
-           .enter()
-           .append("text")
-           .text(function(d) {
-             console.log(d)
-            return d.value;
-           })
-           .attr("text-anchor", "middle")
-           .attr("x", function(d, i) {
-            return xScale(i) + xScale.bandwidth() / 2;
-           })
-           .attr("y", function(d) {
-             console.log(d)
-            return yScale(d.value) + 14;
-           })
-           .attr("font-family", "sans-serif")
-           .attr("font-size", "11px")
-           .attr("fill", "white")
-           .attr("class", "barText");
-*/
-        d3.select("svg")
-        .append("g")
-        .attr("class","x axis")
-        .attr("transform","translate(0,"+(h-margin)+")")
-        .call(xAxis);
+        var sortArray = getData(-1);
 
-        d3.select("svg")
-        .append("g")
-        .attr("class","y axis")
-        .attr("transform","translate("+80+",0)")
-        .call(yAxis);
-
-        svg.append("text")
-          .attr("x", (w / 2) - 40)
-          .attr("y", 20)
-          .attr("text-anchor", "middle")
-          .attr("id", "topLabel")
-          .style("font-size", "16px")
-          .text("NYC Green Markets - Unique Produce Types");
-
-        svg.append("text")
-          .attr("x", w/2)
-          .attr("y", h/2)
-          .attr("text-anchor", "middle")
-          .style("font-size", "12px")
-          .attr("transform", "rotate(270,200,350)")
-          .attr("id", "leftLabel")
-          .text("# of All Kinds of Produce");
-
-        var labels = [];
-        for (var key in keys) {
-          labels.push(keys[key]);
+        for (var month in sortArray) {
+          datasetOne.push(sortArray[month]);
+          months.push(month);
         }
-        labels.push("All");
-        colors.push("#ffffff")
-        var legend = svg.selectAll(".legend")
-          .data(labels)
-          .enter().append("g")
-          .attr("class", "legend")
-          .attr("data-type", function(d, i) {
-            if (d == "All") {
-              return -1;
-            }
-            return i;
-          })
-          .attr("transform", function (d, i) { return "translate(0," + i * 20 + ")"; });
 
-        legend.append("rect")
-            .attr("x", w - 150)
-            .attr("y", h/2-5)
-            .attr("width", 10)
-            .attr("height", 10)
-            .style("fill", function(d, i) {
-              return colors[i];
-            })
-            .style("stroke", "grey");
+  			//Set up stack method
+  			stack = d3.stack()
+  						  .keys(keys);  // <-- Flipped stacking order
 
-        legend.append("text")
-            .attr("x", w - 130)
+  			//Data, stacked
+  			series = stack(datasetOne);
+
+        xScaleOne = d3.scaleBand()
+            			 .domain(d3.range(datasetOne.length))
+            			 .range([80, w-200], 0.05)
+                   .paddingInner(0.5);
+
+        yScaleOne = d3.scaleLinear()
+                   .domain([0, d3.max(datasetOne, function(d, i) {
+                                  var max = 0;
+                                  for (var type in keys) {
+                                    max += d[keys[type]];
+                                  }
+                     						  return 10 + max;
+                     					 })
+                   ])
+                   .range([h-margin, 50]);
+
+
+  			//Easy colorScale accessible via a 10-step ordinal scale
+        var colors = ["#0000ff","#FF0000","#FFA500","#008000"];
+  			var colorScale = d3.scaleOrdinal()
+             .range(colors);
+
+        xAxisOne = d3.axisBottom().scale(xScaleOne).tickFormat((d,i) => months[i]);
+        yAxisOne = d3.axisLeft().scale(yScaleOne);
+
+  			//Create SVG element
+  			svg = d3.select("#chart")
+  						.append("svg")
+  						.attr("width", w)
+  						.attr("height", h);
+
+  			// Add a group for each row of data
+  			var groups = svg.selectAll("g")
+  				.data(series)
+  				.enter()
+  				.append("g")
+  				.style("fill", function(d, i) {
+  					return colorScale(i);
+  				})
+          .attr("class", "groups");
+  			// Add a rect for each data value
+  			var rects = groups.selectAll("rect")
+  				.data(function(d) { return d; })
+  				.enter()
+  				.append("rect")
+  				.attr("x", function(d, i) {
+  					return xScaleOne(i);
+  				})
+  				.attr("y", function(d) {
+  					return yScaleOne(d[1]);  // <-- Changed y value
+  				})
+  				.attr("height", function(d) {
+  					return yScaleOne(d[0]) - yScaleOne(d[1]);  // <-- Changed height value
+  				})
+  				.attr("width", xScaleOne.bandwidth())
+          .attr("class", "bar");
+
+          d3.select("svg")
+          .append("g")
+          .attr("class","x axis")
+          .attr("transform","translate(0,"+(h-margin)+")")
+          .call(xAxisOne);
+
+          d3.select("svg")
+          .append("g")
+          .attr("class","y-axis")
+          .attr("transform","translate("+80+",0)")
+          .call(yAxisOne);
+
+          svg.append("text")
+            .attr("x", (w / 2) - 40)
+            .attr("y", 20)
+            .attr("text-anchor", "middle")
+            .attr("id", "topLabel")
+            .style("font-size", "16px")
+            .text("NYC Green Markets - Unique Produce Types");
+
+          svg.append("text")
+            .attr("x", w/2)
             .attr("y", h/2)
-            .attr("dy", ".35em")
-            .text(function (d) { return d; });
+            .attr("text-anchor", "middle")
+            .style("font-size", "12px")
+            .attr("transform", "rotate(270,200,350)")
+            .attr("id", "leftLabel")
+            .text("# of All Kinds of Produce");
 
-            svg.selectAll(".legend")
-               .on("click", function() {
-                 var type = d3.select(this).attr("data-type");
-                 dataset = [];
-                 var sortArray = getData(type);
+          var labels = [];
+          for (var key in keys) {
+            labels.push(keys[key]);
+          }
+          labels.push("All");
+          colors.push("#ffffff")
 
-                 for (var month in sortArray) {
-                   dataset.push(sortArray[month]);
-                 }
+          var legend = svg.selectAll(".legend")
+            .data(labels)
+            .enter().append("g")
+            .attr("class", "legend")
+            .attr("data-type", function(d, i) {
+              if (d == "All") {
+                return -1;
+              }
+              return i;
+            })
+            .attr("transform", function (d, i) { return "translate(0," + i * 20 + ")"; });
 
-                 series = stack(dataset);
+          legend.append("rect")
+              .attr("x", w - 150)
+              .attr("y", h/2-5)
+              .attr("width", 10)
+              .attr("height", 10)
+              .style("fill", function(d, i) {
+                return colors[i];
+              })
+              .style("stroke", "grey");
 
-                 yScale.domain([0, d3.max(dataset, function(d, i) {
-                                var max = 0;
-                                for (var objectType in keys) {
-                                  max += d[keys[objectType]];
-                                }
-                   						  return 10 + max;
-                   					 })
-                 ]);
+          legend.append("text")
+              .attr("x", w - 130)
+              .attr("y", h/2)
+              .attr("dy", ".35em")
+              .text(function (d) { return d; });
 
-                 svg.select(".y.axis")
-                   .transition()
-                   .duration(1000)
-                 .call(yAxis);
+              svg.selectAll(".legend")
+                 .on("click", function() {
+                   var type = d3.select(this).attr("data-type");
+                   datasetOne = [];
+                   var sortArray = getData(type);
 
-                 var groups =svg.selectAll(".groups")
-                   .data(series)
+                   for (var month in sortArray) {
+                     datasetOne.push(sortArray[month]);
+                   }
 
-           			// Add a rect for each data value
-           			 var rects = groups.selectAll(".bar")
-           				.data(function(d) { return d; })
-                  .transition()
-                  .duration(1000)
-           				.attr("x", function(d, i) {
-           					return xScale(i);
-           				})
-           				.attr("y", function(d) {
-           					return yScale(d[1]);  // <-- Changed y value
-           				})
-           				.attr("height", function(d) {
-           					return yScale(d[0]) - yScale(d[1]);  // <-- Changed height value
-           				})
-           				.attr("width", xScale.bandwidth())
-                  .attr("class", "bar");
+                   series = stack(datasetOne);
 
-                svg.select("#leftLabel").text(function() {
-                  if (parseInt(type) === -1) {
-                    return "# of All Kinds of Produce";
-                  } else {
-                    return "# of " + keys[type];
-                  }
-                })
-  /*
-                  //Update all labels
+                   yScaleOne.domain([0, d3.max(datasetOne, function(d, i) {
+                                  var max = 0;
+                                  for (var objectType in keys) {
+                                    max += d[keys[objectType]];
+                                  }
+                     						  return 10 + max;
+                     					 })
+                   ]);
 
-                 //Select…
-                 svg.selectAll(".barText").remove();
+                   svg.select(".y-axis")
+                     .transition()
+                     .duration(1000)
+                   .call(yAxisOne);
 
+                   var groups =svg.selectAll(".groups")
+                     .data(series)
 
-                 //Enter…
-                 svg.selectAll("text")
-                   .data(dataset, key)
-                   .enter()
-                   .append("text")
-                   .transition()
-                   .duration(1000)
-                   .text(function(d) {
-                     return d.value;
-                   })
-                   .attr("text-anchor", "middle")
-                   .attr("x", function(d, i) {
-                    return xScale(i) + xScale.bandwidth() / 2;
-                   })
-                   .attr("y", function(d) {
-                    return yScale(d.value) + 14;
-                   })
-                   .attr("font-family", "sans-serif")
-                   .attr("font-size", "11px")
-                   .attr("fill", "white")
-                   .attr("class", "barText");
+             			// Add a rect for each data value
+             			 var rects = groups.selectAll(".bar")
+             				.data(function(d) { return d; })
+                    .transition()
+                    .duration(1000)
+             				.attr("x", function(d, i) {
+             					return xScaleOne(i);
+             				})
+             				.attr("y", function(d) {
+             					return yScaleOne(d[1]);  // <-- Changed y value
+             				})
+             				.attr("height", function(d) {
+             					return yScaleOne(d[0]) - yScaleOne(d[1]);  // <-- Changed height value
+             				})
+             				.attr("width", xScaleOne.bandwidth())
+                    .attr("class", "bar");
 
-*/
-           });
-      });
-
-      function getData(objectType) {
-        var sortArray = [];
-        for (var row in rawData) {
-            if (row !== "columns") {
-              for (var type in rawData[row]) {
-                if (type !== "Index" && type !== "Freshness" && type !== "Category") {
-                  if (type in sortArray) {
-                    if ((parseInt(objectType) === -1 || keys[objectType] === (rawData[row]["Freshness"] + " " + rawData[row]["Category"]))) {
-                      sortArray[type][(rawData[row]["Freshness"] + " " + rawData[row]["Category"])] = parseInt(rawData[row][type]);
+                  svg.select("#leftLabel").text(function() {
+                    if (parseInt(type) === -1) {
+                      return "# of All Kinds of Produce";
                     } else {
-                      sortArray[type][(rawData[row]["Freshness"] + " " + rawData[row]["Category"])] = 0;
+                      return "# of " + keys[type];
                     }
-                  } else {
-                    sortArray[type] = {};
-                    if ((parseInt(objectType) === -1 || keys[objectType] === (rawData[row]["Freshness"] + " " + rawData[row]["Category"]))) {
-                      sortArray[type][(rawData[row]["Freshness"] + " " + rawData[row]["Category"])] = parseInt(rawData[row][type]);
+                  })
+             });
+        });
+
+        function getData(objectType) {
+          var sortArray = [];
+          for (var row in rawData) {
+              if (row !== "columns") {
+                for (var type in rawData[row]) {
+                  if (type !== "Index" && type !== "Freshness" && type !== "Category") {
+                    if (type in sortArray) {
+                      if ((parseInt(objectType) === -1 || keys[objectType] === (rawData[row]["Freshness"] + " " + rawData[row]["Category"]))) {
+                        sortArray[type][(rawData[row]["Freshness"] + " " + rawData[row]["Category"])] = parseInt(rawData[row][type]);
+                      } else {
+                        sortArray[type][(rawData[row]["Freshness"] + " " + rawData[row]["Category"])] = 0;
+                      }
                     } else {
-                      sortArray[type][(rawData[row]["Freshness"] + " " + rawData[row]["Category"])] = 0;
+                      sortArray[type] = {};
+                      if ((parseInt(objectType) === -1 || keys[objectType] === (rawData[row]["Freshness"] + " " + rawData[row]["Category"]))) {
+                        sortArray[type][(rawData[row]["Freshness"] + " " + rawData[row]["Category"])] = parseInt(rawData[row][type]);
+                      } else {
+                        sortArray[type][(rawData[row]["Freshness"] + " " + rawData[row]["Category"])] = 0;
+                      }
                     }
                   }
                 }
               }
             }
+
+            return sortArray;
+        }
+
+
+      </script>
+
+
+
+      <div class="part">
+        <h2 class="part-header">Part 4: Viz 2</h2>
+        <p class="women">Show time for women.</p>
+        <p class="men">Show time for men.</p>
+        <p class="all">Show all times.</p>
+        <div class="plot"></div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      console.log("inn")
+      var w = 700;
+      var h = 400;
+      var padding = 40;
+      var r = 2;
+      var xScale, yScale, women_line, men_line, linear_fit_women, linear_fit_men, dataset = [], xAxis, yAxis, men_dataset = [], women_dataset = [], tmp_dataset = [];
+
+
+      d3.csv("marathon.csv", function(error, data) {
+        console.log("sibbi")
+        if (error) {
+          console.log(error);
+        } else {
+          dataset = data;
+        }
+        console.log(data)
+        //Change time to minutes
+        for (i = 0; i < dataset.length; i++) {
+          var tmp_time = dataset[i]['Time'];
+          var a = tmp_time.split(':'); // split it at the colons
+          dataset[i]['Time'] = parseFloat((+a[0]) * 60 + (+a[1]) + parseFloat("0." + a[2])*(100/60));
+          if(dataset[i]["Gender"] === "men"){
+            men_dataset.push(dataset[i]);
           }
+          if (dataset[i]["Gender"] === "women"){
+            women_dataset.push(dataset[i]);
+          }
+        }
 
-          return sortArray;
-      }
+        tmp_dataset = dataset;
+
+              //Create scale functions
+        xScale = d3.scaleTime()
+                       .domain([d3.min(tmp_dataset, function(d) { return parseInt(d["Year"]); }), d3.max(tmp_dataset, function(d) { return parseInt(d["Year"]); })])
+                       .range([padding, w - padding * 2]);
+
+        yScale = d3.scaleLinear()
+                       .domain([d3.min(tmp_dataset, function(d) { return d["Time"]; }), d3.max(tmp_dataset, function(d) { return d["Time"]; })])
+                       .range([h - padding, padding]);
+
+        xAxis = d3.axisBottom()
+                      .scale(xScale)
+                      .ticks(5)
+                      .tickFormat(d3.format("d"));
+
+        yAxis = d3.axisLeft()
+                      .scale(yScale)
+                      .ticks(5);
+
+        women_line = d3.line()
+                      .defined(function(d) { return d["Gender"] === "women"; })
+                      .x(function(d) { return xScale(parseInt(d["Year"])); })
+                      .y(function(d) { return yScale(d["Time"]); });
+
+        men_line = d3.line()
+                      .defined(function(d) { return d["Gender"] === "men"; })
+                      .x(function(d) { return xScale(parseInt(d["Year"])); })
+                      .y(function(d) { return yScale(d["Time"]); });
+
+        linear_fit_men = d3.line()
+                      .defined(function(d) { return d["Gender"] === "men"; })
+                      .x(function(d) { return xScale(parseInt(d["Year"])); })
+                      .y(function(d) { return yScale((parseInt(d["Year"])* (-0.290181208508)) + 709.838068577); });
+
+        linear_fit_women = d3.line()
+                      .defined(function(d) { return d["Gender"] === "women"; })
+                      .x(function(d) { return xScale(parseInt(d["Year"])); })
+                      .y(function(d) { return yScale((parseInt(d["Year"])* (-0.932674227416)) + 2013.25314849); });
+
+          //Create SVG element
+        var svg = d3.select(".plot")
+              .append("svg")
+              .attr("width", w)
+              .attr("height", h);
+
+        svg.append("path")
+            .datum(tmp_dataset)
+            .attr("class", "line")
+            .attr("d", women_line);
+
+        svg.append("path")
+            .datum(tmp_dataset)
+            .attr("class", "line")
+            .attr("d", men_line);
+
+        svg.append("path")
+            .datum(tmp_dataset)
+            .attr("class", "line")
+            .attr("d", linear_fit_women);
+
+        svg.append("path")
+            .datum(tmp_dataset)
+            .attr("class", "line")
+            .attr("d", linear_fit_men);
+
+        //Create circles
+        svg.selectAll("circle")
+           .data(tmp_dataset)
+           .enter()
+           .append("circle")
+           .attr("cx", function(d) {
+              return xScale(parseInt(d["Year"]));
+           })
+           .attr("cy", function(d) {
+              return yScale(d["Time"]);
+           })
+           .attr("r", r)
+           .append("title")
+                  .text(function(d) {
+                    var date = new Date(null);
+                    date.setSeconds(d["Time"] * 60); // specify value for SECONDS here
+                    var result = date.toISOString().substr(11, 8);
+                    return "Marathon winner of " + d["Year"] + " was " + d["Athlete"] + " finishing in " + result + ".";
+                  });
+
+        svg.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(0," + (h - padding) + ")")
+            .call(xAxis);
+
+        // text label for the x axis
+        svg.append("text")
+            .attr("transform", "translate(" + (w/2 - padding/2) + "," + (h - padding/3) + ")")
+            .style("text-anchor", "middle")
+            .style("font-size", "10px")
+            .text("Year");
+
+        svg.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(" +  padding + ",0)")
+            .call(yAxis);
+
+        // text label for the y axis
+        svg.append("text")
+            .attr("x", (-h/2))
+            .attr("y", (padding/3))
+            .attr("transform", "rotate(270)")
+            .style("text-anchor", "middle")
+            .style("font-size", "10px")
+            .text("Time (in minutes)");
+
+        svg.append("text")
+            .attr("x", (w / 2) - (padding / 2))
+            .attr("y", h - padding/12)
+            .attr("text-anchor", "middle")
+            .style("font-size", "8px")
+            .style("margin-left", "115px")
+            .text("Winning time (in minutes) for an annual marathon event, seperately for men and women. Also shown are the straight line approximations.");
+
+        svg.append("text")
+            .attr("x", 2*(w/3) - (padding / 2))
+            .attr("y", 2*(h/7) - (padding / 3))
+            .attr("text-anchor", "middle")
+            .attr("class", "women_leg")
+            .style("font-size", "12px")
+            .text("Women");
+
+        svg.append("text")
+            .attr("x", w/4 - (padding / 2))
+            .attr("y", h/2 - (padding / 3))
+            .attr("text-anchor", "middle")
+            .attr("class", "men_leg")
+            .style("font-size", "12px")
+            .text("Men");
 
 
+        //On click, update with new data
+        d3.selectAll("p")
+          .on("click", function() {
+
+            //See which p was clicked
+            var paragraphID = d3.select(this).attr("class");
+
+            if(paragraphID === "men") {
+              tmp_dataset = men_dataset;
+              var women_leg = svg.selectAll(".women_leg");
+
+              women_leg.text("");
+
+              var men_leg = svg.selectAll(".men_leg");
+
+              men_leg.text("Men");
+            }
+            else if(paragraphID === "women") {
+              tmp_dataset = women_dataset;
+              var men_leg = svg.selectAll(".men_leg");
+
+              men_leg.text("");
+
+              var women_leg = svg.selectAll(".women_leg");
+
+              women_leg.text("Women");
+            }
+            else if (paragraphID === "all"){
+              tmp_dataset = dataset;
+
+              var men_leg = svg.selectAll(".men_leg");
+
+              men_leg.text("Men");
+
+              var women_leg = svg.selectAll(".women_leg");
+
+              women_leg.text("Women");
+            }
+
+              var cir = svg.selectAll("circle")
+                           .data(tmp_dataset);
+
+              cir.exit().remove();
+
+              cir.enter()
+                .append("circle")
+                .merge(cir)
+                .attr("cx", function(d) {
+                  return xScale(parseInt(d["Year"]));
+               })
+               .attr("cy", function(d) {
+                  return yScale(d["Time"]);
+               })
+               .attr("r", r);
+
+               cir.select("title")
+                .text(function(d) {
+                  var date = new Date(null);
+                  date.setSeconds(d["Time"] * 60); // specify value for SECONDS here
+                  var result = date.toISOString().substr(11, 8);
+                  return "Marathon winner of " + d["Year"] + " was " + d["Athlete"] + " finishing in " + result + ".";
+                });
+
+              svg.selectAll(".line")
+                .data(tmp_dataset)
+                .attr("d", women_line);
+
+
+              svg.selectAll(".line")
+                .data(tmp_dataset)
+                .attr("d", linear_fit_women);
+
+              svg.selectAll(".line")
+                .data(tmp_dataset)
+                .attr("d", men_line);
+
+
+              svg.selectAll(".line")
+                .data(tmp_dataset)
+                .attr("d", linear_fit_men);
+
+              svg.append("path")
+                .datum(tmp_dataset)
+                .attr("class", "line")
+                .attr("d", men_line);
+
+              svg.append("path")
+                .datum(tmp_dataset)
+                .attr("class", "line")
+                .attr("d", linear_fit_men);
+
+              svg.append("path")
+                .datum(tmp_dataset)
+                .attr("class", "line")
+                .attr("d", women_line);
+
+              svg.append("path")
+                .datum(tmp_dataset)
+                .attr("class", "line")
+                .attr("d", linear_fit_women);
+        });
+      });
     </script>
+
   </body>
 </html>
