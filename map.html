@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Test D3</title>
+    <script type="text/javascript" src="d3/d3.js"></script>
+
+    <style type="text/css">
+      .brushed {
+            fill: #ff3399;
+            stroke: #8e1b54;
+            opacity: 1.0;
+        }
+      .circlePoint {
+        fill: #black;
+        stroke: #gray;
+        opacity: 1.0;
+      }
+	  </style>
+
+  </head>
+
+  <body>
+    <script type="text/javascript">
+
+      //Width and height
+      var w = 1300;
+      var h = 500;
+      var margin = {top: 20, right: 20, bottom: 60, left: w/2-50};
+      var circles, brush, allData;
+
+      var boroColor = ["red", "green", "orange", "steelblue", "pink"];
+
+      //Define map projection
+      var projection = d3.geoMercator()
+                   .translate([w/2, h/2])
+                   .scale(50000)
+                   .center([-73.55, 40.70]);
+
+      //Define path generator
+      var path = d3.geoPath()
+               .projection(projection);
+
+      //Create SVG element
+      var svg = d3.select("body")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
+
+      var xScale = d3.scaleBand()
+                     .domain(d3.range(24))
+                     .rangeRound([0, w/2])
+                     .padding(0.1);
+      var yScale;
+/*
+      xScaleOne = d3.scaleBand()
+                 .domain(d3.range(datasetOne.length))
+                 .range([80, w-200], 0.05)
+                 .paddingInner(0.5);
+      yScaleOne = d3.scaleLinear()
+                 .domain([0, d3.max(datasetOne, function(d, i) {
+                                var max = 0;
+                                for (var type in keys) {
+                                  max += d[keys[type]];
+                                }
+                                return 10 + max;
+                             })
+                 ])
+                 .range([h-margin, 50]);
+*/
+
+      var g = svg.append("g")
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      //Load in GeoJSON data
+      d3.json("boroughs.json", function(json) {
+        //Bind data and create one path per GeoJSON feature
+        console.log(json)
+        svg.selectAll("path")
+           .data(json.features)
+           .enter()
+           .append("path")
+           .attr("d", path)
+           .style("fill", function(d, i) {
+              return boroColor[i];
+           });
+
+           d3.csv("murders.csv", function(rawData) {
+              allData = rawData;
+              var data = getData(rawData);
+
+              var max = d3.max(data, function(d) {
+                return d;
+              });
+
+              yScale = d3.scaleLinear()
+                           .domain([0, max])
+                           .rangeRound([h-margin.bottom, margin.top]);
+
+             circles = svg.selectAll("circle")
+               .data(rawData)
+               .enter()
+               .append("circle")
+               .attr("cx", function(d) {
+                 return projection([d.Longitude, d.Latitude])[0];
+               })
+               .attr("cy", function(d) {
+                 return projection([d.Longitude, d.Latitude])[1];
+               })
+               .attr("r", 2.5)
+               .attr("class", "brushed");
+
+             g.append("g")
+              .attr("class", "x-axis")
+              .attr("transform", "translate(0," + (h-margin.bottom) + ")")
+              .call(d3.axisBottom().scale(xScale).tickFormat((d,i) => i));
+
+             g.append("text")
+              .attr("transform", "translate(220, 0)")
+              .attr("dy", "0.71em")
+              .text("Murders in NYC by time of day");
+
+             g.append("text")
+               .attr("transform", "translate(300," + (h-40) + ")")
+               .attr("dy", "0.71em")
+               .text("Hour");
+
+             g.append("g")
+              .attr("class", "y-axis")
+              .call(d3.axisLeft().scale(yScale));
+
+             g.append("text")
+              .attr("transform", "rotate(-90)")
+              .attr("y", -50)
+              .attr("x", -150)
+              .attr("dy", "0.71em")
+              .attr("text-anchor", "end")
+              .text("# of murders committed");
+
+             g.selectAll(".bar")
+              .data(data)
+              .enter()
+              .append("rect")
+                 .attr("x", function(d, i) {
+      			   		 return 13+i * (26);
+        			   })
+        			   .attr("y", function(d) {
+        			   		return yScale(d);
+        			   })
+        			   .attr("width", xScale.bandwidth())
+        			   .attr("height", function(d) {
+        			   		return h - margin.bottom - yScale(d);
+        			   })
+                .attr("class", "bar")
+                .attr("fill", function(d) {
+                 return "steelblue";
+                });
+
+                brush = d3.brush()
+                          .on("brush", highlightBrushedCircles)
+                          .on("end", updateBarchart);
+
+                svg.append("g")
+                   .call(brush);
+
+           });
+      });
+
+      function highlightBrushedCircles() {
+
+        if (d3.event.selection != null) {
+
+            // revert circles to initial style
+            circles.attr("class", "non_brushed");
+
+            var brush_coords = d3.brushSelection(this);
+
+            // style brushed circles
+            circles.filter(function (){
+               var cx = d3.select(this).attr("cx"),
+                   cy = d3.select(this).attr("cy");
+
+                 return isBrushed(brush_coords, cx, cy);
+             })
+             .attr("class", "brushed");
+          }
+      }
+
+      function isBrushed(brush_coords, cx, cy) {
+
+             var x0 = brush_coords[0][0],
+                 x1 = brush_coords[1][0],
+                 y0 = brush_coords[0][1],
+                 y1 = brush_coords[1][1];
+
+            return x0 <= cx && cx <= x1 && y0 <= cy && cy <= y1;
+        }
+
+      function updateBarchart() {
+
+          // disregard brushes w/o selections
+          // ref: http://bl.ocks.org/mbostock/6232537
+          if (!d3.event.selection) return;
+
+          // programmed clearing of brush after mouse-up
+          // ref: https://github.com/d3/d3-brush/issues/10
+          d3.select(this).call(brush.move, null);
+          var d_brushed =  d3.selectAll(".brushed").data();
+
+          var data;
+
+          // populate table if one or more elements is brushed
+
+          if (d_brushed.length < 1) {
+              data = getData(allData);
+              circles.attr("class", "brushed");
+          } else {
+              data = getData(d_brushed);
+          }
+
+          var max = d3.max(data, function(d) {
+            return d;
+          });
+
+          yScale = d3.scaleLinear()
+                         .domain([0, max])
+                         .rangeRound([h-margin.bottom, margin.top]);
+
+          svg.selectAll('.y-axis')
+            .call(d3.axisLeft().scale(yScale));
+
+          g.selectAll(".bar").remove();
+
+          g.selectAll(".bar")
+           .data(data)
+           .enter()
+           .append("rect")
+              .attr("x", function(d, i) {
+                return 13+i * (26);
+              })
+              .attr("y", function(d) {
+                 return yScale(d);
+              })
+              .attr("width", xScale.bandwidth())
+              .attr("height", function(d) {
+                 return h - margin.bottom - yScale(d);
+              })
+             .attr("class", "bar")
+             .attr("fill", function(d) {
+              return "steelblue";
+             });
+
+      }
+
+      function getData(rawData) {
+        var sortedData = [];
+
+        for (var i=0; i<24; i++) {
+          sortedData[i] = 0;
+        }
+
+        for (line in rawData) {
+          if ("CMPLNT_FR_TM" in rawData[line]) {
+            var hour = parseInt(rawData[line].CMPLNT_FR_TM.substring(0, 2));
+            sortedData[hour]++;
+          }
+        }
+        console.log(sortedData)
+        return sortedData;
+      }
+
+    </script>
+
+  </body>
+</html>

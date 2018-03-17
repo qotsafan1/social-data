@@ -6,428 +6,67 @@
     <script type="text/javascript" src="d3/d3.js"></script>
 
     <style type="text/css">
-	body {
-		font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-		font-size: 10px;
-		color: #202020;
-		background: #FFFFFF;
-		margin: 40px 0 20px 0;
-		padding: 0;
-	}
-
-	a:active, a:focus { outline: 0; }
-
-	#content {
-		width: 770px;
-		margin: 0 auto;
-	}
-
-		#content #header {
-			border-bottom: 3px solid #202020;
-		}
-
-		#content #header #top {
-			border-bottom: 1px solid #202020;
-			padding: 0 0 10px 0;
-			position: relative;
-		}
-
-		#content #header #top a.title {
-			width: 688px;
-			color: #202020;
-			font-family: Georgia;
-			font-size: 72px;
-			font-style: italic;
-			font-weight: normal;
-			letter-spacing: -3px;
-			text-decoration: none;
-			margin: 0;
-		}
-
-		#content #header #top .buttons {
-			position: absolute;
-			bottom: 24px;
-			right: 0;
-		}
-
-		#content #header #top .buttons a {
-			color: #FFFFFF;
-			font-weight: bold;
-			text-transform: uppercase;
-			text-decoration: none;
-			background: #D00000;
-		}
-
-		#content #header #bottom {
-			font-size: 10px;
-			padding: 8px 0;
-		}
-
-		#content #header #bottom a {
-			color: #447777;
-			font-weight: bold;
-			text-decoration: none;
-		}
-
-    p {
-      font-family: Georgia;
-      font-size: 14px;
-    }
-
-    .legend {
-      cursor:pointer;
-      font-size: 14px;
-    }
-
 
 	</style>
 
   </head>
   <body>
 
-    <!--a href="http://www.tumblr.com/theme/467" class="install"></a-->
-	<div id="content">
-		<div id="header">
-			<div id="top">
-        <p>This is a reproduction of <a href="http://iquantny.tumblr.com/post/129373499164/this-is-quantifiably-the-best-month-to-go-to-the">http://iquantny.tumblr.com/post/129373499164/this-is-quantifiably-the-best-month-to-go-to-the</a> as the first line</p>
-				<a href="/" class="title">I Quant NY</a>
-
-
-				<div class="buttons">
-						<a href="/subscribe" class="button">Mailing List</a>
-																&nbsp;&nbsp;&nbsp;&nbsp;
-
-					<a href="http://iquantny.tumblr.com/rss" class="button">RSS</a>
-					&nbsp;&nbsp;&nbsp;&nbsp;
-					<a href="/archive" class="button">Archive</a>
-
-
-
-				</div>
-
-				<div style="clear: both"></div>
-			</div>
-			<div id="bottom">
-				Quantitative Analysis of NYC Open Data: Every data set that the city releases tells a story. This blog is all about telling those stories, one data set at a time.&nbsp;&nbsp;
-
-
-                	<br/><br/>
-                		<!--a href="http://facebook.com/iquantny"><img src="http://i1155.photobucket.com/albums/p555/benwellington/mini-logo-facebook-logo_zps6d6b6a8a.jpg" width="20px"></a>
-					<a href="http://www.twitter.com/iquantny"><img src="http://www.drernieward.com/wp-content/uploads/2012/01/Twitter-icon-resized-image-40x40.png" width="20px"></a-->
-                    <a href="/about">About Me</a>&nbsp;&nbsp;<a href="/aboutyou">About You</a>&nbsp;&nbsp;<a href="/interviews">Interviews</a>&nbsp;&nbsp;<a href="/press">Press</a>&nbsp;&nbsp;<a href="/topics">Topics</a>&nbsp;&nbsp;<a href="/subscribe">Subscribe</a>&nbsp;&nbsp;
-
-
-
-
-			</div>
-		</div>
-
-
-			<div class="date">
-				September 18, 2015
-			</div>
-
-
-			<div class="post">
-
-				<h1><a href="http://iquantny.tumblr.com/post/129373499164/this-is-quantifiably-the-best-month-to-go-to-the">This is Quantifiably the Best Month to go to the Farmers Market</a></h1>
-				<p><p>As part of a homework assignment, I ask my students at Pratt to go out and chart something of interest to them, and <a href="https://t.umblr.com/redirect?z=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fkvsavarese&amp;t=NmE2YmYyYjU4NTI3MTFhYWFiMWE1ZjFhNzc1NmUzMmE0ZDQ4OGM2NSwxeHM2a1phNg%3D%3D&amp;b=t%3A5jlxwUw4OZ-2SbgNDPgKMQ&amp;p=http%3A%2F%2Fiquantny.tumblr.com%2Fpost%2F129373499164%2Fthis-is-quantifiably-the-best-month-to-go-to-the&amp;m=1">Katherine Savarese</a> came back with a simple chart about farmers markets that I loved- it inspired this post.</p><p>You probably know that farmers markets are a staple across <a href="https://t.umblr.com/redirect?z=http%3A%2F%2Fwww.grownyc.org%2Ffiles%2Fgmkt%2Fmap.pdf&amp;t=MGM4YmRjZjQ2ZmFmYzBiYmMzMmY5NDU2MTdiNzMzMmYyOWQ5YjQ2ZSwxeHM2a1phNg%3D%3D&amp;b=t%3A5jlxwUw4OZ-2SbgNDPgKMQ&amp;p=http%3A%2F%2Fiquantny.tumblr.com%2Fpost%2F129373499164%2Fthis-is-quantifiably-the-best-month-to-go-to-the&amp;m=1">all five boroughs</a> of New York City, but September happens to be a very special month.  Why is that? &nbsp;Well, it turns out September is the month with the most unique types of fresh produce- forty three to be exact.</p><p>To show the current offerings, we charted how many types of fruits and vegetables are available by month, and showed if they were fresh or from storage.&nbsp;</p>
-
-        <div id="chart"></div>
-
-        <p>If you miss the month of September, you might be behind the fruit curve, but there are plenty more months of vegetables left. &nbsp;The chart shows that fresh vegetables are available 9 out of 12 months, but fruit is only available 5 out of 12. Now if only we could quantify how delicious the produce is&hellip;&nbsp;</p><p>&mdash;&ndash;</p><p>Data from:&nbsp;<a href="https://t.umblr.com/redirect?z=http%3A%2F%2Fwww.grownyc.org%2Fgreenmarket%2Fwhatsavailable&amp;t=MWU3YTNhNmYwMDJkNWUwNWQzOTUwMTZjMzJlMGNhM2E3YzdlNTIxMCwxeHM2a1phNg%3D%3D&amp;b=t%3A5jlxwUw4OZ-2SbgNDPgKMQ&amp;p=http%3A%2F%2Fiquantny.tumblr.com%2Fpost%2F129373499164%2Fthis-is-quantifiably-the-best-month-to-go-to-the&amp;m=1">http://www.grownyc.org/greenmarket/whatsavailable</a></p></p>
-      </div>
-
-
-
-
-
     <script type="text/javascript">
-    var w = 700;
-    var h = 400;
-    var margin = 40;
+      //Width and height
+      var w = 300;
+      var h = 300;
+  //bronx, brooklyn, manhattan, queens, staten
+      var dataset = [ 0.217, 0.299, 0.237, 0.199, 0.048];
 
-    var dataset = [];
-    var rawData = [];
-    var months = [];
-    var keys = ["Harvest Fruits", "Storage Fruits", "Harvest Vegetables", "Storage Vegetables"]
-    var xScale, yScale, xAxis, yAxis, yAxisRight, yAxisLeft, svg, series, stack;
+      d3.csv("crime_by_state.txt", function(data) {
+        console.log(data)
 
-    //Load in the data
-    d3.csv("data.txt", function(data) {
-      rawData = data;
+        var outerRadius = w / 2;
+        var innerRadius = w / 3;
+        var arc = d3.arc()
+              .innerRadius(innerRadius)
+              .outerRadius(outerRadius);
 
-      var sortArray = getData(-1);
+        var pie = d3.pie();
 
-      for (var month in sortArray) {
-        dataset.push(sortArray[month]);
-        months.push(month);
-      }
+        //Easy colors accessible via a 10-step ordinal scale
+        var color = d3.scaleOrdinal(d3.schemeCategory10);
 
-			//Set up stack method
-			stack = d3.stack()
-						  .keys(keys);  // <-- Flipped stacking order
+        //Create SVG element
+        var svg = d3.select("body")
+              .append("svg")
+              .attr("width", w)
+              .attr("height", h);
 
-			//Data, stacked
-			series = stack(dataset);
+        //Set up groups
+        var arcs = svg.selectAll("g.arc")
+                .data(pie(dataset))
+                .enter()
+                .append("g")
+                .attr("class", "arc")
+                .attr("transform", "translate(" + outerRadius + "," + outerRadius + ")");
 
-      xScale = d3.scaleBand()
-          			 .domain(d3.range(dataset.length))
-          			 .range([80, w-200], 0.05)
-                 .paddingInner(0.5);
-
-      yScale = d3.scaleLinear()
-                 .domain([0, d3.max(dataset, function(d, i) {
-                                var max = 0;
-                                for (var type in keys) {
-                                  max += d[keys[type]];
-                                }
-                   						  return 10 + max;
-                   					 })
-                 ])
-                 .range([h-margin, 50]);
-
-
-			//Easy colorScale accessible via a 10-step ordinal scale
-      var colors = ["#0000ff","#FF0000","#FFA500","#008000"];
-			var colorScale = d3.scaleOrdinal()
-           .range(colors);
-
-      xAxis = d3.axisBottom().scale(xScale).tickFormat((d,i) => months[i]);
-      yAxis = d3.axisLeft().scale(yScale);
-
-			//Create SVG element
-			svg = d3.select("#chart")
-						.append("svg")
-						.attr("width", w)
-						.attr("height", h);
-
-			// Add a group for each row of data
-			var groups = svg.selectAll("g")
-				.data(series)
-				.enter()
-				.append("g")
-				.style("fill", function(d, i) {
-					return colorScale(i);
-				})
-        .attr("class", "groups");
-			// Add a rect for each data value
-			var rects = groups.selectAll("rect")
-				.data(function(d) { return d; })
-				.enter()
-				.append("rect")
-				.attr("x", function(d, i) {
-					return xScale(i);
-				})
-				.attr("y", function(d) {
-					return yScale(d[1]);  // <-- Changed y value
-				})
-				.attr("height", function(d) {
-					return yScale(d[0]) - yScale(d[1]);  // <-- Changed height value
-				})
-				.attr("width", xScale.bandwidth())
-        .attr("class", "bar");
-/*
-        //Create labels
-        svg.selectAll("text")
-           .data(function(d) { return d; })
-           .enter()
-           .append("text")
-           .text(function(d) {
-             console.log(d)
-            return d.value;
-           })
-           .attr("text-anchor", "middle")
-           .attr("x", function(d, i) {
-            return xScale(i) + xScale.bandwidth() / 2;
-           })
-           .attr("y", function(d) {
-             console.log(d)
-            return yScale(d.value) + 14;
-           })
-           .attr("font-family", "sans-serif")
-           .attr("font-size", "11px")
-           .attr("fill", "white")
-           .attr("class", "barText");
-*/
-        d3.select("svg")
-        .append("g")
-        .attr("class","x axis")
-        .attr("transform","translate(0,"+(h-margin)+")")
-        .call(xAxis);
-
-        d3.select("svg")
-        .append("g")
-        .attr("class","y axis")
-        .attr("transform","translate("+80+",0)")
-        .call(yAxis);
-
-        svg.append("text")
-          .attr("x", (w / 2) - 40)
-          .attr("y", 20)
-          .attr("text-anchor", "middle")
-          .attr("id", "topLabel")
-          .style("font-size", "16px")
-          .text("NYC Green Markets - Unique Produce Types");
-
-        svg.append("text")
-          .attr("x", w/2)
-          .attr("y", h/2)
-          .attr("text-anchor", "middle")
-          .style("font-size", "12px")
-          .attr("transform", "rotate(270,200,350)")
-          .attr("id", "leftLabel")
-          .text("# of All Kinds of Produce");
-
-        var labels = [];
-        for (var key in keys) {
-          labels.push(keys[key]);
-        }
-        labels.push("All");
-        colors.push("#ffffff")
-        var legend = svg.selectAll(".legend")
-          .data(labels)
-          .enter().append("g")
-          .attr("class", "legend")
-          .attr("data-type", function(d, i) {
-            if (d == "All") {
-              return -1;
-            }
-            return i;
-          })
-          .attr("transform", function (d, i) { return "translate(0," + i * 20 + ")"; });
-
-        legend.append("rect")
-            .attr("x", w - 150)
-            .attr("y", h/2-5)
-            .attr("width", 10)
-            .attr("height", 10)
-            .style("fill", function(d, i) {
-              return colors[i];
+        //Draw arc paths
+        arcs.append("path")
+            .attr("fill", function(d, i) {
+              return color(i);
             })
-            .style("stroke", "grey");
+            .attr("d", arc);
 
-        legend.append("text")
-            .attr("x", w - 130)
-            .attr("y", h/2)
-            .attr("dy", ".35em")
-            .text(function (d) { return d; });
-
-            svg.selectAll(".legend")
-               .on("click", function() {
-                 var type = d3.select(this).attr("data-type");
-                 dataset = [];
-                 var sortArray = getData(type);
-
-                 for (var month in sortArray) {
-                   dataset.push(sortArray[month]);
-                 }
-
-                 series = stack(dataset);
-
-                 yScale.domain([0, d3.max(dataset, function(d, i) {
-                                var max = 0;
-                                for (var objectType in keys) {
-                                  max += d[keys[objectType]];
-                                }
-                   						  return 10 + max;
-                   					 })
-                 ]);
-
-                 svg.select(".y.axis")
-                   .transition()
-                   .duration(1000)
-                 .call(yAxis);
-
-                 var groups =svg.selectAll(".groups")
-                   .data(series)
-
-           			// Add a rect for each data value
-           			 var rects = groups.selectAll(".bar")
-           				.data(function(d) { return d; })
-                  .transition()
-                  .duration(1000)
-           				.attr("x", function(d, i) {
-           					return xScale(i);
-           				})
-           				.attr("y", function(d) {
-           					return yScale(d[1]);  // <-- Changed y value
-           				})
-           				.attr("height", function(d) {
-           					return yScale(d[0]) - yScale(d[1]);  // <-- Changed height value
-           				})
-           				.attr("width", xScale.bandwidth())
-                  .attr("class", "bar");
-
-                svg.select("#leftLabel").text(function() {
-                  console.log(type)
-                  if (parseInt(type) === -1) {
-                    return "# of All Kinds of Produce";
-                  } else {
-                    return "# of " + keys[type];
-                  }
-                })
-  /*
-                  //Update all labels
-
-                 //Select…
-                 svg.selectAll(".barText").remove();
-
-
-                 //Enter…
-                 svg.selectAll("text")
-                   .data(dataset, key)
-                   .enter()
-                   .append("text")
-                   .transition()
-                   .duration(1000)
-                   .text(function(d) {
-                     return d.value;
-                   })
-                   .attr("text-anchor", "middle")
-                   .attr("x", function(d, i) {
-                    return xScale(i) + xScale.bandwidth() / 2;
-                   })
-                   .attr("y", function(d) {
-                    return yScale(d.value) + 14;
-                   })
-                   .attr("font-family", "sans-serif")
-                   .attr("font-size", "11px")
-                   .attr("fill", "white")
-                   .attr("class", "barText");
-
-*/
-           });
+        //Labels
+        arcs.append("text")
+            .attr("transform", function(d) {
+              console.log(d)
+              return "translate(" + arc.centroid(d) + ")";
+            })
+            .attr("text-anchor", "middle")
+            .text(function(d) {
+              console.log(d.value)
+              console.log(parseFloat(d.value))
+              return (parseFloat(d.value).toFixed(2) * 100);
+            });
       });
-
-      function getData(objectType) {
-        var sortArray = [];
-        for (var row in rawData) {
-            if (row !== "columns") {
-              for (var type in rawData[row]) {
-                if (type !== "Index" && type !== "Freshness" && type !== "Category") {
-                  if (type in sortArray) {
-                    if ((parseInt(objectType) === -1 || keys[objectType] === (rawData[row]["Freshness"] + " " + rawData[row]["Category"]))) {
-                      sortArray[type][(rawData[row]["Freshness"] + " " + rawData[row]["Category"])] = parseInt(rawData[row][type]);
-                    } else {
-                      sortArray[type][(rawData[row]["Freshness"] + " " + rawData[row]["Category"])] = 0;
-                    }
-                  } else {
-                    sortArray[type] = {};
-                    if ((parseInt(objectType) === -1 || keys[objectType] === (rawData[row]["Freshness"] + " " + rawData[row]["Category"]))) {
-                      sortArray[type][(rawData[row]["Freshness"] + " " + rawData[row]["Category"])] = parseInt(rawData[row][type]);
-                    } else {
-                      sortArray[type][(rawData[row]["Freshness"] + " " + rawData[row]["Category"])] = 0;
-                    }
-                  }
-                }
-              }
-            }
-          }
-
-          return sortArray;
-      }
-
 
     </script>
   </body>

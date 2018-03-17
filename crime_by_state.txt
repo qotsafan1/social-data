@@ -1,0 +1,6 @@
+state,percent
+Bronx,0.217
+Brooklyn,0.299
+Manhattan,0.237
+Queens,0.199
+Staten,0.048
