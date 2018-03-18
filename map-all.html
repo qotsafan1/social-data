@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Test D3</title>
+    <script type="text/javascript" src="d3/d3.js"></script>
+
+    <style type="text/css">
+      .brushed {
+            fill: #ff3399;
+            stroke: #8e1b54;
+            opacity: 1.0;
+        }
+      .non_brushed {
+        display: none;
+      }
+	  </style>
+
+  </head>
+
+  <body>
+    <script type="text/javascript">
+
+      //Width and height
+      var w = 1300;
+      var h = 800;
+      var margin = {top: 20, right: 20, bottom: 60, left: 80};
+      var graphHeight = 200;
+      var circles, allData;
+      var days = 4017;
+      var barWidth = w/days+0.5;
+      var parseDate = d3.timeParse("%m/%d/%Y");
+
+
+      var stringDates = ['1/1/2006', '1/1/2007', '1/1/2008', '1/1/2009', '1/1/2010', '1/1/2011', '1/1/2012', '1/1/2013', '1/1/2014', '1/1/2015', '1/1/2006', '1/1/2017', '1/1/2018'];
+
+      var boroColor = ["red", "green", "orange", "steelblue", "pink"];
+
+      //Define map projection
+      var projection = d3.geoMercator()
+                   .translate([w/2, h/2])
+                   .scale(50000)
+                   .center([-73.90, 40.80]);
+
+      //Define path generator
+      var path = d3.geoPath()
+               .projection(projection);
+
+      //Create SVG element
+      var svg = d3.select("body")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
+
+      var xScale = d3.scaleTime()
+                      .domain([new Date("January 1, 2006"), new Date("December 31, 2016")])
+                      .range([0,w-margin.left]);
+
+      var yScale;
+
+      var brush = d3.brushX()
+        .extent([[0, 0], [w, graphHeight]])
+        .on("start brush", brushed);
+
+      var g = svg.append("g")
+          .attr("transform", "translate(" + margin.left + ",0)")
+          .call(brush);
+
+      //Load in GeoJSON data
+      d3.json("boroughs.json", function(json) {
+        //Bind data and create one path per GeoJSON feature
+        console.log(json)
+        svg.selectAll("path")
+           .data(json.features)
+           .enter()
+           .append("path")
+           .attr("d", path)
+           .style("fill", function(d, i) {
+              return boroColor[i];
+           });
+
+           d3.csv("all_murder.csv", function(rawData) {
+              allData = rawData;
+              var data = getData(rawData);
+
+              var max = d3.max(data, function(d) {
+                return d;
+              });
+
+              yScale = d3.scaleLinear()
+                           .domain([0, max])
+                           .rangeRound([graphHeight, 5]);
+
+             circles = svg.selectAll("circle")
+               .data(rawData)
+               .enter()
+               .append("circle")
+               .attr("cx", function(d) {
+                 return projection([d.Longitude, d.Latitude])[0];
+               })
+               .attr("cy", function(d) {
+                 return projection([d.Longitude, d.Latitude])[1];
+               })
+               .attr("r", 2.5)
+               .attr("class", "brushed")
+               .attr("data-time", function(d) {
+                 return d.RPT_DT;
+               });
+
+             g.append("g")
+              .attr("class", "x-axis")
+              .attr("transform", "translate(0,"+graphHeight+")")
+              .call(d3.axisBottom(xScale).tickFormat(d3.timeFormat("%y")));
+
+             svg.append("text")
+               .attr("transform", "translate("+w/2+","+(graphHeight+20)+")")
+               .attr("dy", "0.71em")
+               .text("Day");
+
+             g.append("g")
+              .attr("class", "y-axis")
+              .call(d3.axisLeft().scale(yScale));
+
+             svg.append("text")
+              .attr("transform", "rotate(-90)")
+              .attr("y", 30)
+              .attr("x", -20)
+              .attr("dy", "0.71em")
+              .attr("text-anchor", "end")
+              .text("# of murders committed");
+
+             g.selectAll(".bar")
+              .data(data)
+              .enter()
+              .append("rect")
+                 .attr("x", function(d, i) {
+                   //console.log(d)
+      			   		 return i+barWidth;
+        			   })
+        			   .attr("y", function(d) {
+                   if (isNaN(d)) return 0;
+        			   		return yScale(d);
+        			   })
+        			   .attr("width", barWidth)
+        			   .attr("height", function(d) {
+                   if (isNaN(d)) return 0;
+        			   		return graphHeight - yScale(d);
+        			   })
+                .attr("class", "bar")
+                .attr("fill", function(d) {
+                 return "steelblue";
+                });
+           });
+      });
+
+      function brushed() {
+        var extent = d3.event.selection.map(xScale.invert, xScale);
+        //console.log(extent)
+        var firstTime = extent[0].getTime();
+        var lastTime = extent[1].getTime();
+
+        circles.filter(function() {
+          var date = parseDate(this.getAttribute('data-time'));
+          var time = date.getTime()
+
+          if (firstTime > time || lastTime < time) {
+            this.classList.add('non_brushed');
+            this.classList.remove('brushed');
+          } else {
+            this.classList.add('brushed');
+            this.classList.remove('non_brushed');
+          }
+        });
+      }
+
+      function getData(rawData) {
+        var sortedData = [];
+
+        var firstDate = new Date(2006,01,01);
+        var lastDate = new Date(2016,12,31);
+
+        var allDays = days_between(firstDate, lastDate);
+
+        for (var i=0; i<allDays; i++) {
+          sortedData[i] = 0;
+        }
+
+        for (line in rawData) {
+          if ("RPT_DT" in rawData[line]) {
+            var month   = parseInt(rawData[line].RPT_DT.substring(0,2));
+            var day  = parseInt(rawData[line].RPT_DT.substring(3,5));
+            var year   = parseInt(rawData[line].RPT_DT.substring(6,10));
+            var date = new Date(year, month, day);
+
+            var day = days_between(firstDate, date);
+
+            if (isNaN(day)) continue;
+            sortedData[day]++;
+          }
+        }
+        console.log(sortedData)
+        return sortedData;
+      }
+
+      // days between function was taken from:
+      // https://stackoverflow.com/questions/2627473/how-to-calculate-the-number-of-days-between-two-dates
+      function days_between(date1, date2) {
+          // The number of milliseconds in one day
+          var ONE_DAY = 1000 * 60 * 60 * 24
+
+          // Convert both dates to milliseconds
+          var date1_ms = date1.getTime()
+          var date2_ms = date2.getTime()
+
+          // Calculate the difference in milliseconds
+          var difference_ms = Math.abs(date1_ms - date2_ms)
+
+          // Convert back to days and return
+          return Math.round(difference_ms/ONE_DAY)
+      }
+
+    </script>
+
+  </body>
+</html>
