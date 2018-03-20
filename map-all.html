@@ -33,7 +33,7 @@
       var h = 800;
       var margin = {top: 20, right: 20, bottom: 60, left: 80};
       var graphHeight = 200;
-      var circles, allData;
+      var circles, allData, dayData, yDayAxis;
       var days = 4017;
       var barWidth = w/days+0.2;
       var parseDate = d3.timeParse("%m/%d/%Y");
@@ -45,7 +45,7 @@
       var projection = d3.geoMercator()
                    .translate([w/2, h/2])
                    .scale(50000)
-                   .center([-73.90, 40.80]);
+                   .center([-73.55, 40.80]);
 
       //Define path generator
       var path = d3.geoPath()
@@ -63,6 +63,12 @@
 
       var yScale;
 
+      var xScaleDay = d3.scaleBand()
+                     .domain(d3.range(24))
+                     .rangeRound([0, w/2])
+                     .padding(0.1);
+      var yScaleDay;
+
       var brush = d3.brushX()
         .extent([[0, 0], [w, graphHeight]])
         .on("start brush", brushed);
@@ -70,6 +76,9 @@
       var g = svg.append("g")
           .attr("transform", "translate(" + margin.left + ",0)")
           .call(brush);
+
+          var gDay = svg.append("g")
+              .attr("transform", "translate(" + margin.left + ",0)")
 
       //Load in GeoJSON data
       d3.json("boroughs.json", function(json) {
@@ -95,6 +104,16 @@
               yScale = d3.scaleLinear()
                            .domain([0, max])
                            .rangeRound([graphHeight, 5]);
+
+              dayData = getDayData(rawData);
+
+              var maxDay = d3.max(dayData, function(d) {
+                return d;
+              });
+
+              yScaleDay = d3.scaleLinear()
+                          .domain([0, maxDay])
+                          .rangeRound([490, 50]);
 
              circles = svg.selectAll("circle")
                .data(rawData)
@@ -161,6 +180,35 @@
                   })
                   .style("fill", "#2196F3")
                   .text("Animate");
+
+                gDay.append("g")
+                 .attr("class", "x-axis")
+                 .attr("transform", "translate(480," + (h-margin.bottom) + ")")
+                 .call(d3.axisBottom().scale(xScaleDay).tickFormat((d,i) => i));
+
+                yDayAxis = gDay.append("g")
+                 .attr("class", "y-axis-day")
+                 .attr("transform", "translate(480,250)")
+                 .call(d3.axisLeft().scale(yScaleDay));
+
+                gDay.selectAll(".bar-day")
+                 .data(dayData)
+                 .enter()
+                 .append("rect")
+                   .attr("x", function(d, i) {
+        			   		 return 492 + i*26;
+          			   })
+          			   .attr("y", function(d) {
+          			   		return yScaleDay(d) + 260;
+          			   })
+          			   .attr("width", xScaleDay.bandwidth())
+          			   .attr("height", function(d) {
+          			   		return h - margin.bottom - 260 - yScaleDay(d);
+          			   })
+                  .attr("class", "bar-day")
+                  .attr("fill", function(d) {
+                   return "steelblue";
+                  });
            });
       });
 
@@ -182,6 +230,51 @@
             this.classList.remove('non_brushed');
           }
         });
+
+        updateBarchart();
+      }
+
+      function updateBarchart() {
+          var d_brushed =  d3.selectAll(".brushed").data();
+          var data;
+
+          if (d_brushed.length < 1) {
+              data = getDayData(allData);
+          } else {
+              data = getDayData(d_brushed);
+          }
+
+          var maxDay = d3.max(data, function(d) {
+            return d;
+          });
+
+          yScaleDay = d3.scaleLinear()
+                      .domain([0, maxDay])
+                      .rangeRound([490, 50]);
+
+          yDayAxis.call(d3.axisLeft().scale(yScaleDay));
+
+          gDay.selectAll(".bar-day").remove();
+
+          gDay.selectAll(".bar-day")
+           .data(data)
+           .enter()
+           .append("rect")
+             .attr("x", function(d, i) {
+               return 492 + i*26;
+             })
+             .attr("y", function(d) {
+                return yScaleDay(d) + 260;
+             })
+             .attr("width", xScaleDay.bandwidth())
+             .attr("height", function(d) {
+                return h - margin.bottom - 260 - yScaleDay(d);
+             })
+            .attr("class", "bar-day")
+            .attr("fill", function(d) {
+               return "steelblue";
+            });
+
       }
 
       function animate() {
@@ -196,6 +289,24 @@
         }, 30);
       }
 
+      function getDayData(rawData) {
+        var sortedData = [];
+
+        for (var i=0; i<24; i++) {
+          sortedData[i] = 0;
+        }
+
+        for (line in rawData) {
+          if ("CMPLNT_FR_TM" in rawData[line]) {
+            var hour = parseInt(rawData[line].CMPLNT_FR_TM.substring(0, 2));
+
+            if(isNaN(hour)) hour = 0;
+            sortedData[hour]++;
+          }
+        }
+      //  console.log(sortedData)
+        return sortedData;
+      }
 
       function getData(rawData) {
         var sortedData = [];
