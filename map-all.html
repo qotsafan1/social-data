@@ -37,6 +37,7 @@
       var days = 4017;
       var barWidth = w/days+0.2;
       var parseDate = d3.timeParse("%m/%d/%Y");
+      var animation;
 
       var boroColor = ["#FF4136", "green", "orange", "steelblue", "pink"];
 
@@ -184,23 +185,15 @@
       }
 
       function animate() {
+        clearInterval(animation);
         var step  = 0;
-        var animation = setInterval(function(){
+        animation = setInterval(function(){
           g.call(brush.move, [0+step, 250+step]);
           if ((step+250) > w) {
             clearInterval(animation);
           }
           step+=5;
         }, 30);
-
-        //brush.extent(20)
-      }
-
-      function brushended() {
-        d3.select(this).transition()
-            .duration(brush.empty() ? 0 : 750)
-            .call(brush.extent(defaultExtent))
-            .call(brush.event);
       }
 
 
