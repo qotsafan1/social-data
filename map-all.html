@@ -14,6 +14,13 @@
       .non_brushed {
         display: none;
       }
+      .button {
+          border: 1px solid;
+          padding: 8px 16px;
+          cursor: pointer;
+          background-color: #2196F3;
+          margin: 20px;
+      }
 	  </style>
 
   </head>
@@ -28,13 +35,10 @@
       var graphHeight = 200;
       var circles, allData;
       var days = 4017;
-      var barWidth = w/days+0.5;
+      var barWidth = w/days+0.2;
       var parseDate = d3.timeParse("%m/%d/%Y");
 
-
-      var stringDates = ['1/1/2006', '1/1/2007', '1/1/2008', '1/1/2009', '1/1/2010', '1/1/2011', '1/1/2012', '1/1/2013', '1/1/2014', '1/1/2015', '1/1/2006', '1/1/2017', '1/1/2018'];
-
-      var boroColor = ["red", "green", "orange", "steelblue", "pink"];
+      var boroColor = ["#FF4136", "green", "orange", "steelblue", "pink"];
 
       //Define map projection
       var projection = d3.geoMercator()
@@ -53,8 +57,8 @@
             .attr("height", h);
 
       var xScale = d3.scaleTime()
-                      .domain([new Date("January 1, 2006"), new Date("December 31, 2016")])
-                      .range([0,w-margin.left]);
+                      .domain([new Date("January 1, 2006"), new Date("December 31, 2017")])
+                      .range([0,w]);
 
       var yScale;
 
@@ -84,7 +88,7 @@
               var data = getData(rawData);
 
               var max = d3.max(data, function(d) {
-                return d;
+                return d.murders;
               });
 
               yScale = d3.scaleLinear()
@@ -110,7 +114,7 @@
              g.append("g")
               .attr("class", "x-axis")
               .attr("transform", "translate(0,"+graphHeight+")")
-              .call(d3.axisBottom(xScale).tickFormat(d3.timeFormat("%y")));
+              .call(d3.axisBottom(xScale).tickFormat(d3.timeFormat("%Y")));
 
              svg.append("text")
                .attr("transform", "translate("+w/2+","+(graphHeight+20)+")")
@@ -134,28 +138,34 @@
               .enter()
               .append("rect")
                  .attr("x", function(d, i) {
-                   //console.log(d)
-      			   		 return i+barWidth;
+      			   		 return xScale(parseDate(d.date));
         			   })
         			   .attr("y", function(d) {
-                   if (isNaN(d)) return 0;
-        			   		return yScale(d);
+        			   		return yScale(d.murders);
         			   })
         			   .attr("width", barWidth)
         			   .attr("height", function(d) {
-                   if (isNaN(d)) return 0;
-        			   		return graphHeight - yScale(d);
+        			   		return graphHeight - yScale(d.murders);
         			   })
                 .attr("class", "bar")
                 .attr("fill", function(d) {
                  return "steelblue";
                 });
+
+                svg.append("text")
+                  .attr("transform", "translate(20,"+(graphHeight+60)+")")
+                  .attr("class", "button")
+                  .on("click", function() {
+                    animate();
+                  })
+                  .style("fill", "#2196F3")
+                  .text("Animate");
            });
       });
 
       function brushed() {
         var extent = d3.event.selection.map(xScale.invert, xScale);
-        //console.log(extent)
+
         var firstTime = extent[0].getTime();
         var lastTime = extent[1].getTime();
 
@@ -173,52 +183,49 @@
         });
       }
 
+      function animate() {
+        var step  = 0;
+        var animation = setInterval(function(){
+          g.call(brush.move, [0+step, 250+step]);
+          if ((step+250) > w) {
+            clearInterval(animation);
+          }
+          step+=5;
+        }, 30);
+
+        //brush.extent(20)
+      }
+
+      function brushended() {
+        d3.select(this).transition()
+            .duration(brush.empty() ? 0 : 750)
+            .call(brush.extent(defaultExtent))
+            .call(brush.event);
+      }
+
+
       function getData(rawData) {
         var sortedData = [];
-
-        var firstDate = new Date(2006,01,01);
-        var lastDate = new Date(2016,12,31);
-
-        var allDays = days_between(firstDate, lastDate);
-
-        for (var i=0; i<allDays; i++) {
-          sortedData[i] = 0;
-        }
-
         for (line in rawData) {
           if ("RPT_DT" in rawData[line]) {
-            var month   = parseInt(rawData[line].RPT_DT.substring(0,2));
-            var day  = parseInt(rawData[line].RPT_DT.substring(3,5));
-            var year   = parseInt(rawData[line].RPT_DT.substring(6,10));
-            var date = new Date(year, month, day);
-
-            var day = days_between(firstDate, date);
-
-            if (isNaN(day)) continue;
-            sortedData[day]++;
+            if (!(rawData[line].RPT_DT in sortedData)) {
+              sortedData[rawData[line].RPT_DT] = 0;
+            }
+            sortedData[rawData[line].RPT_DT]++;
           }
         }
-        console.log(sortedData)
-        return sortedData;
+
+        var finalArray = [];
+        for (var i in sortedData) {
+          var object = {
+            date: i,
+            murders: sortedData[i]
+          }
+          finalArray.push(object);
+        }
+
+        return finalArray;
       }
-
-      // days between function was taken from:
-      // https://stackoverflow.com/questions/2627473/how-to-calculate-the-number-of-days-between-two-dates
-      function days_between(date1, date2) {
-          // The number of milliseconds in one day
-          var ONE_DAY = 1000 * 60 * 60 * 24
-
-          // Convert both dates to milliseconds
-          var date1_ms = date1.getTime()
-          var date2_ms = date2.getTime()
-
-          // Calculate the difference in milliseconds
-          var difference_ms = Math.abs(date1_ms - date2_ms)
-
-          // Convert back to days and return
-          return Math.round(difference_ms/ONE_DAY)
-      }
-
     </script>
 
   </body>
