@@ -6,6 +6,19 @@
     <script type="text/javascript" src="d3/d3.js"></script>
 
     <style type="text/css">
+      body {
+        font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 16px;
+
+        margin: 40px 0 20px 0;
+        padding: 0;
+      }
+
+      #content {
+        width: 1300px;
+        margin: 0 auto;
+      }
+
       .brushed {
             fill: #ff3399;
             stroke: #8e1b54;
@@ -24,8 +37,16 @@
 	  </style>
 
   </head>
-
   <body>
+
+    <!--a href="http://www.tumblr.com/theme/467" class="install"></a-->
+	<div id="content">
+    <h1>Assignment 2</h1>
+    <h2>Part 2: Visualizing Murders over Time</h2>
+    <br>
+    <div id="main"></div>
+  </div>
+
     <script type="text/javascript">
 
       //Width and height
@@ -52,7 +73,7 @@
                .projection(projection);
 
       //Create SVG element
-      var svg = d3.select("body")
+      var svg = d3.select("#main")
             .append("svg")
             .attr("width", w)
             .attr("height", h);
@@ -92,6 +113,17 @@
            .style("fill", function(d, i) {
               return boroColor[i];
            });
+
+         svg.selectAll("text")
+            .data(json.features)
+            .enter()
+            .append("text")
+            .attr('transform', function(d) {              
+              return "translate(" + (path.centroid(d)[0]-30.0) + ","+path.centroid(d)[1]+")";
+            })
+             .text(function(d) {
+               return d.properties.BoroName
+             });
 
            d3.csv("all_murder.csv", function(rawData) {
               allData = rawData;
@@ -153,6 +185,11 @@
               .attr("text-anchor", "end")
               .text("# of murders committed");
 
+            svg.append("text")
+             .attr("transform", "translate(500,5)")
+             .attr("dy", "0.71em")
+             .text("Murders in NYC by day of year from year 2006 to 2016");
+
              g.selectAll(".bar")
               .data(data)
               .enter()
@@ -173,22 +210,24 @@
                 });
 
                 svg.append("text")
-                  .attr("transform", "translate(20,"+(graphHeight+60)+")")
+                  .attr("transform", "translate(80,"+(graphHeight+60)+")")
                   .attr("class", "button")
                   .on("click", function() {
                     animate();
                   })
                   .style("fill", "#2196F3")
+                  .attr("text-decoration", "underline")
+                  .attr("font-size", "20px")
                   .text("Animate");
 
                 gDay.append("g")
                  .attr("class", "x-axis")
-                 .attr("transform", "translate(480," + (h-margin.bottom) + ")")
+                 .attr("transform", "translate(550," + (h-margin.bottom) + ")")
                  .call(d3.axisBottom().scale(xScaleDay).tickFormat((d,i) => i));
 
                 yDayAxis = gDay.append("g")
                  .attr("class", "y-axis-day")
-                 .attr("transform", "translate(480,250)")
+                 .attr("transform", "translate(550,250)")
                  .call(d3.axisLeft().scale(yScaleDay));
 
                 gDay.selectAll(".bar-day")
@@ -196,20 +235,42 @@
                  .enter()
                  .append("rect")
                    .attr("x", function(d, i) {
-        			   		 return 492 + i*26;
+        			   		 return 562 + i*26;
           			   })
           			   .attr("y", function(d) {
-          			   		return yScaleDay(d) + 260;
+          			   		return yScaleDay(d) + 250;
           			   })
           			   .attr("width", xScaleDay.bandwidth())
           			   .attr("height", function(d) {
-          			   		return h - margin.bottom - 260 - yScaleDay(d);
+          			   		return h - margin.bottom - 250 - yScaleDay(d);
           			   })
                   .attr("class", "bar-day")
                   .attr("fill", function(d) {
                    return "steelblue";
                   });
+
+                svg.append("text")
+                 .attr("transform", "rotate(-90)")
+                 .attr("y", 580)
+                 .attr("x", -420)
+                 .attr("dy", "0.71em")
+                 .attr("text-anchor", "end")
+                 .text("# of murders committed");
+
+                svg.append("text")
+                 .attr("transform", "translate(830,280)")
+                 .attr("dy", "0.71em")
+                 .text("Murders in NYC by time of day");
+
+                svg.append("text")
+                 .attr("transform", "translate(930,770)")
+                 .attr("dy", "0.71em")
+                 .text("Hour");
+
+
+                 g.call(brush.move, [200, 400]);
            });
+
       });
 
       function brushed() {
@@ -238,11 +299,8 @@
           var d_brushed =  d3.selectAll(".brushed").data();
           var data;
 
-          if (d_brushed.length < 1) {
-              data = getDayData(allData);
-          } else {
-              data = getDayData(d_brushed);
-          }
+
+          data = getDayData(d_brushed);
 
           var maxDay = d3.max(data, function(d) {
             return d;
@@ -261,14 +319,14 @@
            .enter()
            .append("rect")
              .attr("x", function(d, i) {
-               return 492 + i*26;
+               return 562 + i*26;
              })
              .attr("y", function(d) {
-                return yScaleDay(d) + 260;
+                return yScaleDay(d) + 250;
              })
              .attr("width", xScaleDay.bandwidth())
              .attr("height", function(d) {
-                return h - margin.bottom - 260 - yScaleDay(d);
+                return h - margin.bottom - 250 - yScaleDay(d);
              })
             .attr("class", "bar-day")
             .attr("fill", function(d) {
@@ -278,15 +336,11 @@
       }
 
       function animate() {
-        clearInterval(animation);
-        var step  = 0;
-        animation = setInterval(function(){
-          g.call(brush.move, [0+step, 250+step]);
-          if ((step+250) > w) {
-            clearInterval(animation);
-          }
-          step+=5;
-        }, 30);
+        g.call(brush.move, [0, 200]);
+        g.transition()
+          .duration(7000)
+          .ease(d3.easeLinear)
+          .call(brush.move, [w-200, w]);
       }
 
       function getDayData(rawData) {
