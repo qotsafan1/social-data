@@ -3,20 +3,23 @@ Homelessness in San Francisco.
 Since the Vietnam war, homelessness has been a big problem in San Francisco.
 
 Looking at the last 10 years, the population has grown nearly 10% and as reported by the World Population Review, it's one of the 20 fastest growing cities in the United States and at 
-the same time, homelessness has grown about the same or over 11%. But looking at 311 calls data, complains for homeless concerns has grown over 550%! How can that be?
+the same time, homelessness has grown about the same or over 11%. But looking at data from 311, complains for homeless concerns has grown over 550%! How can that be?
+Our plan is to find out! We will be looking at data from three different sources to try and find an explanation. 
 
 
-That's how we get to our project. 
-Since San Francisco is a part of Silicon Valley, inequality in the city has grown exponentially, therefore, we want to try and see if a district in San Francisco 
-that's getting richer, if it complains more because of homeless concerns.
+Since San Francisco is a part of Silicon Valley, inequality in the city has grown exponentially, therefore, the first thing we will do is see if a district in San Francisco that's getting richer is reporting more complains of homeless concerns. Another possible reason could be that the homeless have moved from district that has lower class inhabitants into a district that has middle or high class inhabitants. This could result in people not used to the homeless all of a sudden see a lot of them.
 
-
+*** Mock-up ***
 
 The genre is a mix of animation and annotated charts because we want to show the user how the times have changed, an easy way to show that visually is with an animation. 
 We also want the user to be able to interact with our visualisation and allow him to choose what to look at. 
 
+What we need to reach our goal is to look at the data we have, process it as needed and visualize it in a stylish and yet clear way.
 
+*** The implementation plan ***
 
+Our main data set is obtained from Data San Francisco and includes all three one one cases in San Francisco from 2008 until today. We did some preprocessing and ended up with 1450000 rows and 5 columns. The size of the data is one hundred forty seven megebytes. 
 
+We needed a bit more to be able to fulfill our idea. Firstly we got data about income of the different sections of San Francisco. That contained 600 rows and 4 columns with a size of 32 kilobytes. Finally we needed geographical data about San Francisco. We were able to find GeoJSON representation of California which we processed in python to extract only our city. The size of the data after that was 1.1 megabyte.
 
-
+That is all, I expect you are all excited to see the outcome. BOOM-CHAKA-LAKA!
