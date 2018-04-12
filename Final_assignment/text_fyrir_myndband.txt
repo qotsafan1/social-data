@@ -1,0 +1,22 @@
+Homelessness in San Francisco.
+
+Since the Vietnam war, homelessness has been a big problem in San Francisco.
+
+Looking at the last 10 years, the population has grown nearly 10% and as reported by the World Population Review, it's one of the 20 fastest growing cities in the United States and at 
+the same time, homelessness has grown about the same or over 11%. But looking at 311 calls data, complains for homeless concerns has grown over 550%! How can that be?
+
+
+That's how we get to our project. 
+Since San Francisco is a part of Silicon Valley, inequality in the city has grown exponentially, therefore, we want to try and see if a district in San Francisco 
+that's getting richer, if it complains more because of homeless concerns.
+
+
+
+The genre is a mix of animation and annotated charts because we want to show the user how the times have changed, an easy way to show that visually is with an animation. 
+We also want the user to be able to interact with our visualisation and allow him to choose what to look at. 
+
+
+
+
+
+

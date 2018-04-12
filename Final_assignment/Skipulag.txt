@@ -1,0 +1,10 @@
+Hugmynd:
+	Barchart af fólksfjölgun í San Franciso vs. homeless fjölgun í San Francisco
+	Geograph af San Francisco, skipt um í hverfi og litruð eftir hversu rík þau eru og punktar af homeless tilkynningum. Animate-a yfir tíma og sjá breytingar
+
+
+Myndband:
+	San Francisco is one of the 20 fastest growing cities in the United States.
+	http://worldpopulationreview.com/us-cities/san-francisco-population/
+	https://www.bizjournals.com/orlando/blog/2016/03/forbes-orlando-is-one-of-nations-fastest-growing.html
+
