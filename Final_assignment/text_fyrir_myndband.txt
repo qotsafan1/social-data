@@ -9,14 +9,14 @@ Our plan is to find out! We will be looking at data from three different sources
 
 Since San Francisco is a part of Silicon Valley, inequality in the city has grown exponentially, therefore, the first thing we will do is see if a district in San Francisco that's getting richer is reporting more complains of homeless concerns. Another possible reason could be that the homeless have moved from district that has lower class inhabitants into a district that has middle or high class inhabitants. This could result in people not used to the homeless all of a sudden see a lot of them.
 
-*** Mock-up ***
+Here is an example of what we plan to make. A geographical visualization which the user can animate, this example is from Assignment 2. There will also be some annotated graphs as well. These graphs will show detailed information about homeless concerns in San Francisco.
 
 The genre is a mix of animation and annotated charts because we want to show the user how the times have changed, an easy way to show that visually is with an animation. 
 We also want the user to be able to interact with our visualisation and allow him to choose what to look at. 
 
 What we need to reach our goal is to look at the data we have, process it as needed and visualize it in a stylish and yet clear way.
 
-*** The implementation plan ***
+We will first play with the data in python and do some analysis to find out which parts of the data are important for our story, this is mostly done. Next we will use D3 to make a visual narrative of what we find out. Finally we will put all of our visualizations into one beautiful webpage so that users can see our project.
 
 Our main data set is obtained from Data San Francisco and includes all three one one cases in San Francisco from 2008 until today. We did some preprocessing and ended up with 1450000 rows and 5 columns. The size of the data is one hundred forty seven megebytes. 
 
