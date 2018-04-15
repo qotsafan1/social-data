@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Final Project - Social data analysis and visualization</title>
+    <script type="text/javascript" src="d3/d3.js"></script>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <header class="bg-primary text-white">
+        <div class="header-div"><img src="san-francisco2.jpg" alt="" class="header-img"></div>
+    </header>
+    <br>
+    <section id="main">
+      <div class="container">
+        <h2>Homelessness in San Francisco</h2>
+        <p class="lead">311 complaints for homeless concerns have grown over 550% in the last 8 years in San Francisco. Here we will give an idea on why that is.</p>
+        <a href="explainer.html">Click here to go to explainer page.</a>
+        <br><br>
+        <p>First thought is that homelessness has grown exponentially over the population but as you can see on the graph below that is not the case.</p>
+        <div id="lineGraph"></div>
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <script src="scripts/line-graph.js"></script>
+    <script src="scripts/geo-graph.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>
