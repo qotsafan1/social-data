@@ -17,7 +17,7 @@ function lineGraph() {
   	.attr("class", "title");
   title.append("text")
   	.attr("x", (width/1.80))
-  	.attr("y", 65)
+  	.attr("y", 40)
   	.attr("text-anchor", "middle")
   	.style("font", "20px sans-serif")
   	.text("Growth in population and homelessness from 2005 in San Francisco");

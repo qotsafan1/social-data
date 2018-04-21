@@ -31,7 +31,22 @@
         <a href="explainer.html">Click here to go to explainer page.</a>
         <br><br>
         <p>First thought is that homelessness has grown exponentially over the population but as you can see on the graph below that is not the case.</p>
+
         <div id="lineGraph"></div>
+
+        <p>Maybe there was some change to the 311 system that made people more open to complain? We went through the <a href="https://sf311.org/history">history of 311 calls in San Francisco</a> to check that possibility.</p>
+        <ul>
+          <li>March 30, 2007 - Start of 311 in San Francisco</li>
+          <li>December 11, 2008 - New 311 Online Services</li>
+          <li>August 8, 2013 - New 311 mobile app</li>
+        </ul>
+
+        <p>If we compare these dates with the graph below of all the homeless complaints each year we might be able to see some impacts.</p>
+
+        <div id="barChart"></div>
+
+        <p>For example the mobile app could have made it easier for people complain but in the app you are only allowed to submit request for: Abandoned Vehicles, Graffiti, Illegal Postings, Street or Sidewalk Cleaning, Streetlight Repair, Blocked Sidewalk or Space, Damaged Public Property, Litter Receptacle, Park Issue, Sign Repair, Street and Sidewalk Defect, and Tree Maintenance.</p>
+
         <div class="row">
           <div class="col-lg-8 mx-auto">
           </div>
@@ -39,8 +54,46 @@
       </div>
     </section>
 
+    <script>
+      var callData;
+      var barData = [];
+      d3.csv("clean_311_data.csv", function(rawData) {
+        callData = rawData;
+        processData(callData);
+
+        barChart();
+      });
+
+      function processData(data) {
+        var processedData = [];
+        var parseTime = d3.timeParse("%m/%d/%Y %H:%M:%S %p");
+        for (var i in data) {
+          var time = parseTime(data[i]["Opened"]);
+          if (time == null || parseInt(time.getFullYear()) == 2008 || parseInt(time.getFullYear()) == 2018) {
+            continue;
+          }
+
+          if (!(parseInt(time.getFullYear()) in processedData)) {
+            processedData[parseInt(time.getFullYear())] = 0;
+          }
+          processedData[parseInt(time.getFullYear())]++;
+        }
+
+        for (var data in processedData) {
+          console.log(processedData[data])
+          barData.push(
+            {
+              "year": data,
+              "sum": processedData[data]
+            }
+          )
+        }
+        console.log(barData)
+      }
+    </script>
 
     <script src="scripts/line-graph.js"></script>
+    <script src="scripts/bar-chart.js"></script>
     <script src="scripts/geo-graph.js"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
