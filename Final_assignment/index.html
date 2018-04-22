@@ -47,6 +47,14 @@
 
         <p>For example the mobile app could have made it easier for people complain but in the app you are only allowed to submit request for: Abandoned Vehicles, Graffiti, Illegal Postings, Street or Sidewalk Cleaning, Streetlight Repair, Blocked Sidewalk or Space, Damaged Public Property, Litter Receptacle, Park Issue, Sign Repair, Street and Sidewalk Defect, and Tree Maintenance.</p>
 
+
+        <div id="dayChart"></div>
+
+        <button onclick="animateBrush()">Animate</button>
+
+        <div id="geoGraph"></div>
+
+
         <div class="row">
           <div class="col-lg-8 mx-auto">
           </div>
@@ -56,31 +64,61 @@
 
     <script>
       var callData;
+      var circles;
       var barData = [];
+      var dayData = [];
+      var circleData = [];
+      var income = [];
+      var parseTime = d3.timeParse("%m/%d/%Y %H:%M:%S %p");
+      var brush;
+      var gBrush;
+      var geo;
+
       d3.csv("clean_311_data.csv", function(rawData) {
         callData = rawData;
         processData(callData);
 
         barChart();
+        dayChart();
+        geoGraph();
       });
 
       function processData(data) {
         var processedData = [];
-        var parseTime = d3.timeParse("%m/%d/%Y %H:%M:%S %p");
+        var processedDayData = [];
+
         for (var i in data) {
           var time = parseTime(data[i]["Opened"]);
-          if (time == null || parseInt(time.getFullYear()) == 2008 || parseInt(time.getFullYear()) == 2018) {
+          if (time == null) {
             continue;
           }
 
-          if (!(parseInt(time.getFullYear()) in processedData)) {
-            processedData[parseInt(time.getFullYear())] = 0;
+          var year = parseInt(time.getFullYear());
+          if (time == null || year == 2008 || year == 2018) {
+            continue;
           }
-          processedData[parseInt(time.getFullYear())]++;
+          //For barchart
+          if (!(year in processedData)) {
+            processedData[year] = 0;
+          }
+          processedData[year]++;
+
+          if (year == 2009 || year == 2010 || year == 2011 || year == 2012 || year == 2016 || year == 2017) {
+            continue;
+          }
+
+          circleData.push(data[i]);
+
+          // For day Chart
+          var dayString = (parseInt(time.getMonth())+1) + "/" + time.getDate() +"/"+ year;
+          if (!(dayString in processedDayData)) {
+            processedDayData[dayString] = 0;
+          }
+          processedDayData[dayString]++;
+
         }
 
         for (var data in processedData) {
-          console.log(processedData[data])
           barData.push(
             {
               "year": data,
@@ -88,12 +126,21 @@
             }
           )
         }
-        console.log(barData)
+
+        for (var data in processedDayData) {
+          dayData.push(
+            {
+              "date": data,
+              "sum": processedDayData[data]
+            }
+          )
+        }
       }
     </script>
 
     <script src="scripts/line-graph.js"></script>
     <script src="scripts/bar-chart.js"></script>
+    <script src="scripts/day-chart.js"></script>
     <script src="scripts/geo-graph.js"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

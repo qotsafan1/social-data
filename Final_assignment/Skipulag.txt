@@ -1,10 +1,6 @@
-Hugmynd:
-	Barchart af fólksfjölgun í San Franciso vs. homeless fjölgun í San Francisco
-	Geograph af San Francisco, skipt um í hverfi og litruð eftir hversu rík þau eru og punktar af homeless tilkynningum. Animate-a yfir tíma og sjá breytingar
-
-
-Myndband:
-	San Francisco is one of the 20 fastest growing cities in the United States.
-	http://worldpopulationreview.com/us-cities/san-francisco-population/
-	https://www.bizjournals.com/orlando/blog/2016/03/forbes-orlando-is-one-of-nations-fastest-growing.html
-
+Hvað þarf að gera:
+	- Laga color codings fyrir hverfin
+	- Setja upp color coding slá til að útskýra hvað hver litur þýðir
+	- Einhversskonar graf sem uppfærist með animation þar sem hverfi sem eru jafn rík eru grúppuð saman og summað upp hversu mörg complaints þau gerðu á þeim tíma er valinn
+	- Setja upp brush kerfi á kortið þannig hægt er að gera nákvæmari skilgreiningu á því sem er að gerast á todo fyrir ofan.
+	- Gera Explainer síðuna
