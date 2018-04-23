@@ -31,14 +31,16 @@
         <h2>1. Motivation</h2>
 
         <p>What is your dataset?</p>
-
+        <p>The main dataset is obtained from Data San Francisco and includes all 311 cases in San Francisco from 2008 until today. The 311 cases we are interested in are homeless concerns. That is when people report they are concerned about homeless people. While there were a lot of interesting types of 311 cases we decided to look into the homeless as it was amongst the most common types of 311 cases. We also wanted to try and find out why there are so many homeless people in San Francisco even though business in Silicon valley is booming. The attributes we are interested in are when the case is reported and the location of the homeless concern, which is provided as longitude and latitude in the dataset. We want to see if there is a relationship between the average income of a section and the number of homeless concerns in that section. To be able to do that we found data on average income of different sections in San Francisco on Data USA. We also want to show the user the geographical representation of San Francisco, for that we need GeoJSON. We found that on GitHub and tailored it to our need.
+        </p>
         <p>Why did you choose this/these particular dataset(s)?</p>
-
+        <p>We chose this dataset as it contains a lot of useful information, we wanted to work with data from San Fracisco as it is a beautiful city. As we wanted to do geographical visualizations we knew we would at least need longitude and lattitude. We also wanted to do some sort of animation and for that you would need some representation of time. The chosen data set contains both these attributes, that is the location and time of the 311 cases. The other two datasets that were chosen to had additional information on San Francisco that we knew we needed.</p>
         <p>What was your goal for the end user’s experience?</p>
-
+        <p>The goal is to create an interactive visual narrative that is simple and elegant whilst containing all the information the user needs to read the story we want to tell. The story we want to tell is how and, more importantly, why the homeless concerns in San Francisco have grown so much these past 10 years.</p>
+        
         <h2>2. Basic stats. Let’s understand the dataset better</h2>
-
         <p>Write about your choices in data cleaning and preprocessing</p>
+        <p>As we were only interested in the 311 cases on homelessness concerns we removed the irrelevant data. Originally the dataset was 964.6 MB and contained 2.87 million rows and 19 columns. After having extracted information we needed the size of the dataset was 147 MB and contained 145.000 rows and 5 columns. The attributes we are interested in are mainly the time and location of the reported concern for the homeless. We used pandas dataframe in python to work with the data, choosing attributes we were interested in and then return the relevant data to a .csv file we could then use in our D3 visualizations. The reason for using pandas is that we had previous experience in using it and it handles relatively large data well. We found a GeoJSON representation of the whole state of California on GitHub, we however only needed San Francisco so we used a Sublime Text along with a bit of regular expressions to clear out the irrelevant geographical areas from the JSON and then we used http://geojson.io/ for a bit of finishing touches.</p>
 
         <p>Write a short section that discusses the dataset stats, containing key points/plots from your exploratory data analysis.</p>
 
@@ -46,19 +48,19 @@
 
         <p>Which tools did you use from each of the 3 categories of Visual Narrative (Figure 7 in Segal and Heer). Why?</p>
 
-        <p>Which tools did you use from each of the 3 categories of Narrative Structure (Figure 7 in Segal and Heer). <Wh></Wh>y?  </  p>
+        <p>Which tools did you use from each of the 3 categories of Narrative Structure (Figure 7 in Segal and Heer). Why?</p>
 
         <h2>4. Visualizations</h2>
 
         <p>Explain the visualizations you’ve chosen.</p>
 
-        <p>Why are they right for the story <yo></yo>u want <to></to> <tel></tel>l?</  p>
+        <p>Why are they right for the story you want to tell?</p>
 
         <h2>5. Discussion. Think critically about your creation</h2>
 
-        <p>What went well?,</p>
+        <p>What went well?</p>
 
-        <p>What is still missing? What could be improved?, Why?</p>
+        <p>What is still missing? What could be improved? Why?</p>
         <div class="row">
           <div class="col-lg-8 mx-auto">
 
