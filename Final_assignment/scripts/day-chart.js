@@ -72,6 +72,46 @@ function dayChart() {
       var lastTime = extent[1].getTime();
       var incomeYear = extent[0].getFullYear();
 
+      if (earlierYear !== extent[0].getFullYear() || laterYear !== extent[1].getFullYear()) {
+        earlierYear = extent[0].getFullYear();
+        laterYear = extent[1].getFullYear();
+
+        if (earlierYear > 2015 || laterYear > 2015) {
+          return;
+        }
+
+        circles.remove();
+
+        var projection = d3.geoMercator()
+                     .translate([670, 420/2])
+                     .scale(180000)
+                     .center([-122.381, 37.770]);
+
+        circleData = yearData[earlierYear];
+
+        if (earlierYear !== laterYear) {
+          circleData = yearData[earlierYear].concat(yearData[laterYear]);
+        }
+
+        var gepSvg = d3.select("#geoGraph").select("svg");
+
+        circles = gepSvg.selectAll("circle")
+         .data(circleData)
+         .enter()
+         .append("circle")
+         .attr("cx", function(d) {
+           return projection([d.Longitude, d.Latitude])[0];
+         })
+         .attr("cy", function(d) {
+           return projection([d.Longitude, d.Latitude])[1];
+         })
+         .attr("r", 2.5)
+         .attr("class", "brushed")
+         .attr("data-time", function(d) {
+           return d.Opened;
+        });
+      }
+
       circles.filter(function() {
         var date = parseTime(this.getAttribute('data-time'));
         var time = date.getTime();
@@ -84,7 +124,7 @@ function dayChart() {
           this.classList.remove('non_brushed');
         }
       });
-console.log("hingad")
+
       geo.filter(function() {
         var geo = this.getAttribute('data-geo');
 
@@ -131,7 +171,7 @@ console.log("hingad")
 }
 
 function animateBrush() {
-  gBrush.call(brush.move, [0, 2]);
+  gBrush.call(brush.move, [0, 20]);
   gBrush.transition()
     .duration(60000)
     .ease(d3.easeLinear)

@@ -68,19 +68,25 @@
       var barData = [];
       var dayData = [];
       var circleData = [];
+      var yearData = [];
+      yearData[2013] = [];
+      yearData[2014] = [];
+      yearData[2015] = [];
       var income = [];
       var parseTime = d3.timeParse("%m/%d/%Y %H:%M:%S %p");
       var brush;
       var gBrush;
       var geo;
+      var earlierYear = 2013;
+      var laterYear = 2015;
 
       d3.csv("clean_311_data.csv", function(rawData) {
         callData = rawData;
         processData(callData);
 
         barChart();
-        dayChart();
         geoGraph();
+        dayChart();
       });
 
       function processData(data) {
@@ -107,7 +113,10 @@
             continue;
           }
 
-          circleData.push(data[i]);
+          yearData[year].push(data[i]);
+
+          if (year == 2013)
+            circleData.push(data[i]);
 
           // For day Chart
           var dayString = (parseInt(time.getMonth())+1) + "/" + time.getDate() +"/"+ year;
@@ -136,6 +145,8 @@
           )
         }
       }
+
+      console.log(yearData)
     </script>
 
     <script src="scripts/line-graph.js"></script>

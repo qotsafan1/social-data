@@ -38,7 +38,6 @@ function geoGraph() {
       var geo = incomeData[i]["geo"].substring('14000US'.length);
       income[year][geo] = incomeData[i]["income"];
     }
-    console.log(income)
   });
   //Load in GeoJSON data
   d3.json("geo_data.json", function(json) {
@@ -49,13 +48,11 @@ function geoGraph() {
        .enter()
        .append("path")
        .attr("class", "geo")
-       .attr("data-geo", function(d) {         
+       .attr("data-geo", function(d) {
          return d.properties.GEOID;
        })
        .attr("d", path);
-       //.style("fill", function(d, i) {
-        //  return boroColor[i];
-       //});
+
     circles = svg.selectAll("circle")
      .data(circleData)
      .enter()
@@ -72,6 +69,6 @@ function geoGraph() {
        return d.Opened;
      });
 
-     gBrush.call(brush.move, [200, 400]);
+     gBrush.call(brush.move, [0, 200]);
   });
 }
