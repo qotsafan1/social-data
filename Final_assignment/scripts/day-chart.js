@@ -83,7 +83,7 @@ function dayChart() {
         circles.remove();
 
         var projection = d3.geoMercator()
-                     .translate([670, 420/2])
+                     .translate([450, 420/2])
                      .scale(180000)
                      .center([-122.381, 37.770]);
 
@@ -161,7 +161,6 @@ function dayChart() {
           } else if (geoIncome < 160000) {
             this.setAttribute("style", "fill: #000000;");
           }
-
         } else {
           this.setAttribute("style", "fill: white;");
         }

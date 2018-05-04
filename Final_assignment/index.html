@@ -52,8 +52,74 @@
 
         <button onclick="animateBrush()">Animate</button>
 
-        <div id="geoGraph"></div>
-
+        <div class="row">
+          <div class="col-lg-6" id="geoGraph"></div>
+          <div class="col-lg-3">
+            <div class="row">
+              <h4>Color code for revenue in district</h4>
+            </div>            
+            <div class="row">
+              <div class="col-xs-5 color-scale" style="background-color:#ffe6e6"></div>
+              <div class="col-xs-8">< $20.000</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-5 color-scale" style="background-color:#ffb3b3"></div>
+              <div class="col-xs-8">$20.000 ~ $30.000</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-5 color-scale" style="background-color:#ff8080"></div>
+              <div class="col-xs-8">$30.000 ~ $40.000</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-5 color-scale" style="background-color:#ff4d4d"></div>
+              <div class="col-xs-8">$40.000 ~ $50.000</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-5 color-scale" style="background-color:#ff1a1a"></div>
+              <div class="col-xs-8">$50.000 ~ $60.000</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-5 color-scale" style="background-color:#e60000"></div>
+              <div class="col-xs-8">$60.000 ~ $70.000</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-5 color-scale" style="background-color:#cc0000"></div>
+              <div class="col-xs-8">$70.000 ~ $80.000</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-5 color-scale" style="background-color:#b30000"></div>
+              <div class="col-xs-8">$80.000 ~ $90.000</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-5 color-scale" style="background-color:#990000"></div>
+              <div class="col-xs-8">$90.000 ~ $100.000</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-5 color-scale" style="background-color:#800000"></div>
+              <div class="col-xs-8">$100.000 ~ $110.000</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-5 color-scale" style="background-color:#660000"></div>
+              <div class="col-xs-8">$110.000 ~ $120.000</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-5 color-scale" style="background-color:#4d0000"></div>
+              <div class="col-xs-8">$120.000 ~ $130.000</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-5 color-scale" style="background-color:#330000"></div>
+              <div class="col-xs-8">$130.000 ~ $140.000</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-5 color-scale" style="background-color:#1a0000"></div>
+              <div class="col-xs-8">$140.000 ~ $150.000</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-5 color-scale" style="background-color:#000000"></div>
+              <div class="col-xs-8">> $150.000</div>
+            </div>
+          </div>
+        </div>
 
         <div class="row">
           <div class="col-lg-8 mx-auto">
@@ -145,8 +211,6 @@
           )
         }
       }
-
-      console.log(yearData)
     </script>
 
     <script src="scripts/line-graph.js"></script>

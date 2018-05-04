@@ -59,3 +59,9 @@ div.tooltip {
 .non_brushed {
   display: none;
 }
+
+.color-scale {
+  width: 40px;
+  height: 20px;
+  border: 1px solid black;
+}

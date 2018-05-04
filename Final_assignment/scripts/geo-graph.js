@@ -1,7 +1,7 @@
 function geoGraph() {
   var svg = d3.select("#geoGraph")
               .append("svg")
-              .attr("width", 800)
+              .attr("width", 580)
               .attr("height", 500);
   var margin = {top: 40, right: 80, bottom: 40, left: 50},
   	width = svg.attr("width") - margin.left - margin.right,
