@@ -11,6 +11,11 @@
   margin: auto;
 }
 
+.explainer-img{
+  height: 250px;
+  width: 30%;
+}
+
 .image-class {
   max-width: 600px;
   margin: 0 auto;

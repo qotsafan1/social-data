@@ -27,27 +27,41 @@
     <section id="main">
       <div class="container">
         <h2>Homelessness in San Francisco</h2>
-        <p class="lead">311 complaints for homeless concerns have grown over 550% in the last 8 years in San Francisco. Here we will give an idea on why that is.</p>
+        <p class="lead">311 complaints for homeless concerns have grown over 550% in the last 8 years in San Francisco. Why is that?</p>
         <a href="explainer.html">Click here to go to explainer page.</a>
         <br><br>
-        <p>First thought is that homelessness has grown exponentially over the population but as you can see on the graph below that is not the case.</p>
+        <h4>But first, what is a 311 complaint? </h4>
+        <p>According to <a href="https://en.wikipedia.org/wiki/3-1-1">Wikipedia</a>:</p>
+        <blockquote cite="https://en.wikipedia.org/wiki/3-1-1">
+        3-1-1 is a special telephone number supported in many communities in Canada and the United States. The number provides access to non-emergency municipal services. The number format follows the N11 code for a group of short, special-purpose local numbers as designated in the North American Numbering Plan.
+        3-1-1 creates a central hub for constituents to be able to access a variety of city services. The number 3-1-1 is intended in part to divert routine inquiries and non-urgent community concerns from the 9-1-1 number which is reserved for emergency service. A promotional website for 3-1-1 in Akron described the distinction as follows: "Burning building? Call 9-1-1. Burning Question? Call 3-1-1."
+        Many cities also accept 3-1-1 comments through online interfaces. An Open 311 application programming interface is also available for these services.
+        </blockquote>
+        <p>311 service request are grouped into categories, these are for example complaints about noise, reporting of graffiti or sighting of rats or other rodents. One of these categories are homeless concerns, that is people report that they are in some way concerned about the homeless or what they are doing. Over the last 8 years these types of 311 reports have grown 550% in San Francisco. What is the reason for that? We plan to find out!</p>
+        <h4>San Francisco's population</h4>
+        <p>Of course it is possible that the number of homeless people in San Francisco has grown so much in the past 8 years that the rise in 311 calls for homeless concerns is warranted. To test that theory we gathered data about the growth of homeless population and the population in general in San Francisco. The data was graphed and as can be seen below the growth in homeless population is much less that 550%, it is around 12 % for the last 12 years.</p>
 
         <div id="lineGraph"></div>
-
-        <p>Maybe there was some change to the 311 system that made people more open to complain? We went through the <a href="https://sf311.org/history">history of 311 calls in San Francisco</a> to check that possibility.</p>
+        <h4>Changes to the 311 system</h4>
+        <p>Perhaps there was some changes to the 311 system that made it easier for people to make 311 reports? We went through the <a href="https://sf311.org/history">history of 311 calls in San Francisco</a> to check that possibility.
+         Here below we can see dates of interest and what happened to the 311 system:</p>
         <ul>
           <li>March 30, 2007 - Start of 311 in San Francisco</li>
           <li>December 11, 2008 - New 311 Online Services</li>
           <li>August 8, 2013 - New 311 mobile app</li>
+          <li>October 8, 2015 - New feature for the app, homeless concerns priority</li>
         </ul>
 
         <p>If we compare these dates with the graph below of all the homeless complaints each year we might be able to see some impacts.</p>
 
         <div id="barChart"></div>
 
-        <p>For example the mobile app could have made it easier for people complain but in the app you are only allowed to submit request for: Abandoned Vehicles, Graffiti, Illegal Postings, Street or Sidewalk Cleaning, Streetlight Repair, Blocked Sidewalk or Space, Damaged Public Property, Litter Receptacle, Park Issue, Sign Repair, Street and Sidewalk Defect, and Tree Maintenance.</p>
+        <p>For example the mobile app could have made it easier for people to report 311 cases but in the app you are originally only allowed to submit reports of/requests for: Abandoned Vehicles, Graffiti, Illegal Postings, Street or Sidewalk Cleaning, Streetlight Repair, Blocked Sidewalk or Space, Damaged Public Property, Litter Receptacle, Park Issue, Sign Repair, Street and Sidewalk Defect, and Tree Maintenance.
+        Therefore the arrival of the new mobile app doesn't explain the rise in homeless concerns. However later, in 2015 they add the possibility of reporting homeless people and actually make it a priority. After some research online it seems that the homeless problem in San Francisco is a big problem at that time and the city is getting ready to host a lot of guests as in February 2016 the superbowl will be played in close by Levi's stadium. San Francisco seems embarrassed of the problem and want to clean as much of it up before the superbowl. These changes can be seen in the chart below where we have graphed the daily homeless reports from 2013 until 2016. Late 2015 there can be seen a big spike which is around the same time the feature is added to the app and city officials urge people to report homeless concerns.</p>
 
-
+        <h4>Movement of the homeless</h4>
+        <p>There is a possibility that the homeless have moved from one district, where is might be common to see homeless people, to another district, where it might not be common to see homeless people. Perhaps the homeless population is moving from low-class to high-class neighbourhoods and thus people are more prone to report them to 311. To see if that is the case we created a geographical representation of the city and divided it into its districts. We also colorcoded the districts to represent the average income of its inhabitants.</p>
+        
         <div id="dayChart"></div>
 
         <button onclick="animateBrush()">Animate</button>
@@ -56,7 +70,7 @@
           <div class="col-lg-6" id="geoGraph"></div>
           <div class="col-lg-3">
             <div class="row">
-              <h4>Color code for revenue in district</h4>
+              <h4>Color code for average income in district</h4>
             </div>            
             <div class="row">
               <div class="col-xs-5 color-scale" style="background-color:#ffe6e6"></div>
@@ -125,7 +139,12 @@
           <div class="col-lg-8 mx-auto">
           </div>
         </div>
+      <p>As can be seen from the animation and intercating with the graphs above the homeless concerns reported are mainly in districts where the income is lower. We can also see that most of the reports are in the Tenderloin district in downtown San Francisco. Crime rate is high as well in the Tenderloin district and the average income is quite low.</p>
+      
+      <h4>Conclusion</h4>
+      <p>Homelessness is obviously a big problem in San Francisco and it seems to be getting worse. The homeless concerns reported in 311 reports are warranted but the huge rise in these reports can be attributed to it being easier and easier for people to make these reports with the internet and smartphone applications. It also seems as the awareness has been increased and people are more prone to report the homeless than before. However reporting the homeless doesn't seem to be helping in solving the problem and it is clear that different measures must be taken to tackle this problem. A part of San Francisco's population is getting rich and exploiting the high tech job market in Silicon Valley, meanwhile a big part of the population is getting poorer and their lives getting worse, the pay gap seems to be getting bigger and bigger while housing as well is getting more expensive. It is therefore not that surprising that San Francisco has this problem.</p>
       </div>
+      
     </section>
 
     <script>
