@@ -61,7 +61,7 @@
 
         <h4>Movement of the homeless</h4>
         <p>There is a possibility that the homeless have moved from one district, where is might be common to see homeless people, to another district, where it might not be common to see homeless people. Perhaps the homeless population is moving from low-class to high-class neighbourhoods and thus people are more prone to report them to 311. To see if that is the case we created a geographical representation of the city and divided it into its districts. We also colorcoded the districts to represent the average income of its inhabitants.</p>
-        
+
         <div id="dayChart"></div>
 
         <button onclick="animateBrush()">Animate</button>
@@ -71,7 +71,7 @@
           <div class="col-lg-3">
             <div class="row">
               <h4>Color code for average income in district</h4>
-            </div>            
+            </div>
             <div class="row">
               <div class="col-xs-5 color-scale" style="background-color:#ffe6e6"></div>
               <div class="col-xs-8">< $20.000</div>
@@ -135,16 +135,14 @@
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-lg-8 mx-auto">
-          </div>
-        </div>
+        <div id="stackedArea"></div>
+
       <p>As can be seen from the animation and intercating with the graphs above the homeless concerns reported are mainly in districts where the income is lower. We can also see that most of the reports are in the Tenderloin district in downtown San Francisco. Crime rate is high as well in the Tenderloin district and the average income is quite low.</p>
-      
+
       <h4>Conclusion</h4>
       <p>Homelessness is obviously a big problem in San Francisco and it seems to be getting worse. The homeless concerns reported in 311 reports are warranted but the huge rise in these reports can be attributed to it being easier and easier for people to make these reports with the internet and smartphone applications. It also seems as the awareness has been increased and people are more prone to report the homeless than before. However reporting the homeless doesn't seem to be helping in solving the problem and it is clear that different measures must be taken to tackle this problem. A part of San Francisco's population is getting rich and exploiting the high tech job market in Silicon Valley, meanwhile a big part of the population is getting poorer and their lives getting worse, the pay gap seems to be getting bigger and bigger while housing as well is getting more expensive. It is therefore not that surprising that San Francisco has this problem.</p>
       </div>
-      
+
     </section>
 
     <script>
@@ -158,10 +156,12 @@
       yearData[2014] = [];
       yearData[2015] = [];
       var income = [];
+      var districtData = [];
       var parseTime = d3.timeParse("%m/%d/%Y %H:%M:%S %p");
       var brush;
       var gBrush;
       var geo;
+      var geoJson;
       var earlierYear = 2013;
       var laterYear = 2015;
 
@@ -177,6 +177,7 @@
       function processData(data) {
         var processedData = [];
         var processedDayData = [];
+        var processedDistrictData = [];
 
         for (var i in data) {
           var time = parseTime(data[i]["Opened"]);
@@ -194,11 +195,27 @@
           }
           processedData[year]++;
 
+
           if (year == 2009 || year == 2010 || year == 2011 || year == 2012 || year == 2016 || year == 2017) {
             continue;
           }
 
           yearData[year].push(data[i]);
+
+          if (!(data[i]["District"] in processedDistrictData)) {
+            processedDistrictData[data[i]["District"]] = [];
+            processedDistrictData[data[i]["District"]][2013] = [];
+            processedDistrictData[data[i]["District"]][2014] = [];
+            processedDistrictData[data[i]["District"]][2015] = [];
+
+
+            for (var month = 0; month<12; month++) {
+              processedDistrictData[data[i]["District"]][2013][month] = 0;
+              processedDistrictData[data[i]["District"]][2014][month] = 0;
+              processedDistrictData[data[i]["District"]][2015][month] = 0;
+            }
+          }
+          processedDistrictData[data[i]["District"]][year][time.getMonth()]++;
 
           if (year == 2013)
             circleData.push(data[i]);
@@ -209,7 +226,6 @@
             processedDayData[dayString] = 0;
           }
           processedDayData[dayString]++;
-
         }
 
         for (var data in processedData) {
@@ -229,6 +245,21 @@
             }
           )
         }
+        console.log(processedDistrictData)
+
+        for (var district in processedDistrictData) {
+          districtData[district] = [];
+          for(var month = 0; month < 12; month++) {
+            districtData[district].push({
+              '2013': processedDistrictData[district.toString()][2013][month],
+              '2014': processedDistrictData[district.toString()][2014][month],
+              '2015': processedDistrictData[district.toString()][2015][month],
+              'date': new Date(1991, month, 1)
+            })
+          }
+        }
+
+        updateStackedArea(districtData["06075010100"]);
       }
     </script>
 
@@ -236,6 +267,7 @@
     <script src="scripts/bar-chart.js"></script>
     <script src="scripts/day-chart.js"></script>
     <script src="scripts/geo-graph.js"></script>
+    <script src="scripts/stacked_area.js"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

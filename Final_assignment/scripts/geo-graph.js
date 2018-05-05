@@ -10,6 +10,8 @@ function geoGraph() {
     x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
     y = d3.scaleLinear().rangeRound([height, 0]);
 
+    svg.on('click', handleClick);
+
   //Define map projection
   var projection = d3.geoMercator()
                .translate([width, height/2])
@@ -42,7 +44,7 @@ function geoGraph() {
   //Load in GeoJSON data
   d3.json("geo_data.json", function(json) {
     //Bind data and create one path per GeoJSON feature
-    console.log(json)
+    geoJson = json;
     geo = svg.selectAll("path")
        .data(json.features)
        .enter()
@@ -71,4 +73,19 @@ function geoGraph() {
 
      gBrush.call(brush.move, [0, 200]);
   });
+}
+
+function handleClick() {
+  var pos = d3.mouse(this);
+  var projection = d3.geoMercator()
+               .translate([450, 420/2])
+               .scale(180000)
+               .center([-122.381, 37.770]);
+  geoJson.features.forEach(function(d) {
+    if (d3.geoContains(d, projection.invert(pos))) {
+      updateStackedArea(d.properties.GEOID);
+    }
+  })
+  //state.clickedLocation = projection.invert(pos)
+  //update()
 }
