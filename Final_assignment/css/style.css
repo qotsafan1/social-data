@@ -70,3 +70,13 @@ div.tooltip {
   height: 20px;
   border: 1px solid black;
 }
+
+#geoGraph {
+  margin: 0px;
+  padding: 0px;
+  cursor: pointer;
+}
+
+.color-board {
+  max-width: 245px;
+}

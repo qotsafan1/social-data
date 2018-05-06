@@ -83,8 +83,8 @@ function dayChart() {
         circles.remove();
 
         var projection = d3.geoMercator()
-                     .translate([450, 420/2])
-                     .scale(180000)
+                     .translate([450, 370/2])
+                     .scale(170000)
                      .center([-122.381, 37.770]);
 
         circleData = yearData[earlierYear];
@@ -131,34 +131,34 @@ function dayChart() {
         if (geo in income[incomeYear]) {
           var geoIncome = parseInt(income[incomeYear][geo]);
           if (geoIncome < 20000) {
-            this.setAttribute("style", "fill: #ffe6e6;");
+            this.setAttribute("style", "fill: #ffe6e6; stroke: black; stroke-width: 0.5px;");
           } else if (geoIncome < 30000) {
-            this.setAttribute("style", "fill: #ffb3b3;");
+            this.setAttribute("style", "fill: #ffb3b3; stroke: black; stroke-width: 0.5px;");
           } else if (geoIncome < 40000) {
-            this.setAttribute("style", "fill: #ff8080;");
+            this.setAttribute("style", "fill: #ff8080; stroke: black; stroke-width: 0.5px;");
           } else if (geoIncome < 50000) {
-            this.setAttribute("style", "fill: #ff4d4d;");
+            this.setAttribute("style", "fill: #ff4d4d; stroke: black; stroke-width: 0.5px;");
           } else if (geoIncome < 60000) {
-            this.setAttribute("style", "fill: #ff1a1a;");
+            this.setAttribute("style", "fill: #ff1a1a; stroke: black; stroke-width: 0.5px;");
           } else if (geoIncome < 70000) {
-            this.setAttribute("style", "fill: #e60000;");
+            this.setAttribute("style", "fill: #e60000; stroke: black; stroke-width: 0.5px;");
           } else if (geoIncome < 80000) {
-            this.setAttribute("style", "fill: #cc0000;");
+            this.setAttribute("style", "fill: #cc0000; stroke: black; stroke-width: 0.5px;");
           } else if (geoIncome < 90000) {
-            this.setAttribute("style", "fill: #b30000;");
+            this.setAttribute("style", "fill: #b30000; stroke: black; stroke-width: 0.5px;");
           } else if (geoIncome < 100000) {
-            this.setAttribute("style", "fill: #990000;");
+            this.setAttribute("style", "fill: #990000; stroke: black; stroke-width: 0.5px;");
           } else if (geoIncome < 110000) {
-            this.setAttribute("style", "fill: #800000;");
+            this.setAttribute("style", "fill: #800000; stroke: black; stroke-width: 0.5px;");
           } else if (geoIncome < 120000) {
-            this.setAttribute("style", "fill: #660000;");
+            this.setAttribute("style", "fill: #660000; stroke: black; stroke-width: 0.5px;");
           } else if (geoIncome < 130000) {
-            this.setAttribute("style", "fill: #4d0000;");
+            this.setAttribute("style", "fill: #4d0000; stroke: black; stroke-width: 0.5px;");
           } else if (geoIncome < 140000) {
-            this.setAttribute("style", "fill: #330000;");
-          } else if (geoIncome < 150000) {
-            this.setAttribute("style", "fill: #1a0000;");
-          } else if (geoIncome < 160000) {
+            this.setAttribute("style", "fill: #330000; stroke: black; stroke-width: 0.5px;");
+          } else if (geoIncome <= 150000) {
+            this.setAttribute("style", "fill: #1a0000; stroke: black; stroke-width: 0.5px;");
+          } else if (geoIncome > 150000) {
             this.setAttribute("style", "fill: #000000;");
           }
         } else {
@@ -166,11 +166,13 @@ function dayChart() {
         }
       })
 
+      chosenDistrict.style("stroke", "green")
+                    .style("stroke-width", "5px");
     }
 }
 
 function animateBrush() {
-  gBrush.call(brush.move, [0, 20]);
+  gBrush.call(brush.move, [0, 2]);
   gBrush.transition()
     .duration(60000)
     .ease(d3.easeLinear)

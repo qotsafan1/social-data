@@ -94,5 +94,3 @@ function lineGraph() {
 			return d;
 	}
 }
-
-lineGraph();

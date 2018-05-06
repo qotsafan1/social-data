@@ -19,7 +19,7 @@
     <![endif]-->
   </head>
   <body>
-    <header class="bg-primary text-white page-header">
+    <header class="bg-primary text-white">
 
     </header>
     <br>
@@ -37,7 +37,7 @@
         <p>We chose this dataset as it contains a lot of useful information, we wanted to work with data from San Fracisco as it is a beautiful city. As we wanted to do geographical visualizations we knew we would at least need longitude and lattitude. We also wanted to do some sort of animation and for that you would need some representation of time. The chosen data set contains both these attributes, that is the location and time of the 311 cases. The other two datasets that were chosen to had additional information on San Francisco that we knew we needed.</p>
         <h4>What was your goal for the end user’s experience?</h4>
         <p>The goal is to create an interactive visual narrative that is simple and elegant whilst containing all the information the user needs to read the story we want to tell. The story we want to tell is how and, more importantly, why the homeless concerns in San Francisco have grown so much these past 10 years.</p>
-        
+
         <h2>2. Basic stats. Let’s understand the dataset better</h2>
         <h4>Write about your choices in data cleaning and preprocessing</h4>
         <p>As we were only interested in the 311 cases on homelessness concerns we removed the irrelevant data. Originally the dataset was 964.6 MB and contained 2.87 million rows and 19 columns. After having extracted information we needed the size of the dataset was 147 MB and contained 145.000 rows and 5 columns. The attributes we are interested in are mainly the time and location of the reported concern for the homeless. We used pandas dataframe in python to work with the data, choosing attributes we were interested in and then return the relevant data to a .csv file we could then use in our D3 visualizations. The reason for using pandas is that we had previous experience in using it and it handles relatively large data well. We found a GeoJSON representation of the whole state of California on GitHub, we however only needed San Francisco so we used a Sublime Text along with a bit of regular expressions to clear out the irrelevant geographical areas from the JSON and then we used http://geojson.io/ for a bit of finishing touches.</p>
@@ -53,7 +53,7 @@
         <h4>Which tools did you use from each of the 3 categories of Visual Narrative (Figure 7 in Segal and Heer). Why?</h4>
         <ul>
             <li>
-                <b>Visual Structuring:</b> we used an interactive Timebar in the form of a histogram. The user can use this timebar to look at data from different periods as well as control the size of the period. 
+                <b>Visual Structuring:</b> we used an interactive Timebar in the form of a histogram. The user can use this timebar to look at data from different periods as well as control the size of the period.
             </li>
             <li>
                 <b>Highlighting:</b> we used Motion in our animation of the location of the homeless concerns throughout the time period. An animation allows the user to see clearly if time and/or location is a important factor in homeless concerns.
@@ -71,7 +71,7 @@
                 <b>Interactivity:</b> we use a couple of tools from this group as we want to allow the user to interact with our visualizations. We use Hover Highlighting and Filtering / Selection, the reason for using these tools is to make sure that the user can better understand our story through interactivity.
             </li>
             <li>
-                <b>Messaging:</b> from this group we also employ more than one tool. We use Headlines / Captions, Annotations, Introductory Text and Summary. We use these tools to direct our user through the story we are trying to tell with our visualizations. Through these tools we can help the user better understand what it is he is seeing as well as control the flow of the narrative. 
+                <b>Messaging:</b> from this group we also employ more than one tool. We use Headlines / Captions, Annotations, Introductory Text and Summary. We use these tools to direct our user through the story we are trying to tell with our visualizations. Through these tools we can help the user better understand what it is he is seeing as well as control the flow of the narrative.
             </li>
         </ul>
         <h2>4. Visualizations</h2>

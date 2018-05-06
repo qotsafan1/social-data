@@ -7,6 +7,10 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Final Project - Social data analysis and visualization</title>
     <script type="text/javascript" src="d3/d3.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -64,11 +68,11 @@
 
         <div id="dayChart"></div>
 
-        <button onclick="animateBrush()">Animate</button>
+        <button class="btn btn-info" onclick="animateBrush()">Animate</button>
 
         <div class="row">
-          <div class="col-lg-6" id="geoGraph"></div>
-          <div class="col-lg-3">
+          <div class="col-md-7" id="geoGraph"></div>
+          <div class="col-md-4 color-board">
             <div class="row">
               <h4>Color code for average income in district</h4>
             </div>
@@ -164,11 +168,13 @@
       var geoJson;
       var earlierYear = 2013;
       var laterYear = 2015;
+      var chosenDistrict;
 
       d3.csv("clean_311_data.csv", function(rawData) {
         callData = rawData;
         processData(callData);
 
+        lineGraph();
         barChart();
         geoGraph();
         dayChart();
@@ -245,7 +251,6 @@
             }
           )
         }
-        console.log(processedDistrictData)
 
         for (var district in processedDistrictData) {
           districtData[district] = [];
@@ -254,7 +259,7 @@
               '2013': processedDistrictData[district.toString()][2013][month],
               '2014': processedDistrictData[district.toString()][2014][month],
               '2015': processedDistrictData[district.toString()][2015][month],
-              'date': new Date(1991, month, 1)
+              'date': new Date(0001, month, 1)
             })
           }
         }
@@ -268,9 +273,5 @@
     <script src="scripts/day-chart.js"></script>
     <script src="scripts/geo-graph.js"></script>
     <script src="scripts/stacked_area.js"></script>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
   </body>
 </html>
