@@ -11,6 +11,14 @@
   margin: auto;
 }
 
+.caption {
+  text-align: center;
+}
+
+.church-img{
+  width: 100%;
+}
+
 .explainer-img{
   height: 250px;
   width: 30%;
