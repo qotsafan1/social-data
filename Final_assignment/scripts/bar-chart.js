@@ -33,6 +33,15 @@ function barChart() {
     .attr("fill", "#000")
     .text("311 complaints");
 
+  g.append("g")
+    .append("text")
+    .attr("y", height+35)
+    .attr("x", width/2)
+    .attr("fill", "#000")
+    .style("font-size", "12px")
+    .text("Year");
+
+
   g.selectAll(".bar")
     .data(barData)
     .enter().append("rect")

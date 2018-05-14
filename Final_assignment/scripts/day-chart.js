@@ -30,7 +30,7 @@ function dayChart() {
 
   g.append("g")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%Y")));
+      .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%m/%Y")));
 
   g.append("g")
     .call(d3.axisLeft(y))
@@ -41,6 +41,14 @@ function dayChart() {
     .attr("dy", "0.9em")
     .attr("fill", "#000")
     .text("311 complaints");
+
+  g.append("g")
+    .append("text")
+    .attr("y", height+35)
+    .attr("x", width/2-20)
+    .attr("fill", "#000")
+    .style("font-size", "10px")
+    .text("Day");
 
   g.selectAll(".day-bar")
     .data(dayData)

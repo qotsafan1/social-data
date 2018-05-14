@@ -61,6 +61,13 @@ function lineGraph() {
 			.attr("fill", "#000")
 			.text("Percentage increase");
 
+    g.append("text")
+			.attr("y", height+35)
+			.attr("x", width/2)
+			.attr("fill", "#000")
+      .style("font-size", "12px")
+			.text("Year");
+
 		var graph = g.selectAll(".graph")
 			.data(parsedData)
 			.enter()

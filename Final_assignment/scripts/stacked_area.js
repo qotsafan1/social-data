@@ -88,7 +88,7 @@ function updateStackedArea(data) {
       .attr('class', 'stacked-removeable')
       .call(d3.axisLeft(stackedArea.y));
 
-  stackedArea.g.append ("text")
+  stackedArea.g.append("text")
     .attr("x", -185)
     .attr("y", -30)
     .attr('class', 'stacked-removeable')
@@ -96,9 +96,18 @@ function updateStackedArea(data) {
     .style("font-size", "10px")
     .text("311 homelessness concerns calls")
 
-  svgStacked.append ("text")
+    stackedArea.g.append("text")
+      .attr("y", stackedArea.height+35)
+      .attr("x", stackedArea.width/2)
+      .attr("fill", "#000")
+      .attr('class', 'stacked-removeable')
+      .style("font-size", "12px")
+      .text("Month");
+
+  svgStacked.append("text")
     .attr("x", 80)
     .attr("y", 30)
+    .attr('class', 'stacked-removeable')
     .style("font-size", "18px")
     .text("Comparison between 2013-2015 on 311 calls each month in chosen district")
 }
